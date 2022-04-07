@@ -3,6 +3,7 @@ import { defineUserConfig} from "vuepress";
 import type {DefaultThemeOptions} from "vuepress";
 
 export default defineUserConfig<DefaultThemeOptions>({
+    base: '/goblog/',
     lang: 'zh_CN',
     title: '蝉时雨丶的博客',
     description: '学习和记录Go & Vue',
