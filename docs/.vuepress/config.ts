@@ -26,7 +26,14 @@ export default defineUserConfig<DefaultThemeOptions>({
                   children: [
                       '/Golang/base.md'
                   ]
-              }],
+              },
+              {
+                  text: '第三部分: 工具',
+                  children: [
+                      '/Golang/Docker.md'
+                  ]
+              }
+          ],
         },
       ],
     },
