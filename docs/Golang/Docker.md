@@ -80,6 +80,12 @@ RUN pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple \
 
 ### 在容器运行图形化软件
 
+在主机安装X11软件, Centos 7/8
+
+```text
+yum -y install xorg-x11-xauth
+```
+
 > Docker实践(第2版) 技巧29 在Docker里运行GUI
 
 分两种场景
@@ -107,6 +113,8 @@ docker run -itd --name core --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xa
 ```
 
 关键参数: --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority
+
+注意, 每次XShell重新连接，都要重启容器，然后进入容器修改DISPLAY的值跟宿主机的一致，才能打开图形化界面软件。
 
 ### 对已启动的容器修改端口
 
