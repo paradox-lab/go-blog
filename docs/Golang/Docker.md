@@ -104,17 +104,61 @@ sudo docker run -itd --name core -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw 
 DISPLAY是显示器名称
 :::
 
-**本地远程服务器启动docker的GUI**
+**本地远程服务器启动docker的GUI(不推荐)**
 
-先下载Xming, 然后参考博客 https://blog.csdn.net/ywxuan/article/details/118462658
+如果是Win系统，先下载Xming, 然后参考博客 https://blog.csdn.net/ywxuan/article/details/118462658
 
 ```text
-docker run -itd --name core --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority -v /opt/core:/opt/core --privileged core
+docker run -itd --name core --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /opt/core:/opt/core --privileged core
 ```
 
-关键参数: --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority
+关键参数: --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority -v /tmp/.X11-unix:/tmp/.X11-unix:rw
 
-注意, 每次XShell重新连接，都要重启容器，然后进入容器修改DISPLAY的值跟宿主机的一致，才能打开图形化界面软件。
+注意, 每次XShell重新连接，都要重启容器，然后进入容器修改DISPLAY的值跟宿主机的一致，才能打开图形化界面软件。因为这个过程挺繁琐的，所以不推荐这种方法。
+
+**本地ssh直接容器，然后打开GUI(推荐)**
+
+#. 运行容器
+```text
+docker run --net=host --name gui image_name
+```
+
+注意，关键参数只有--net=host, 不要挂载主机的 /.Xauthority 和 /tmp/.X11-unix ,可能会产生冲突
+
+#. 容器启动ssh服务允许远程连接, 参考 [本地远程连接服务器的容器](#本地远程连接服务器的容器)
+#. ssh连接容器, 假设端口号为222
+**Unix系统**
+假设本机是Ubuntu系统，并且装好了图形化软件
+```text
+ssh -X root@host -p 222
+apt-get install xarclock
+xarclock 
+```
+
+**Win系统**
+
+用powershell连接到容器, 打开powershell设置DISPLAY
+```text
+PS C:\Users\39713> setx DISPLAY "localhost:0.0"
+```
+重启powershell让DISPLAY生效, 输出DISPLAY
+```text
+PS C:\Users\39713> $env:DISPLAY
+localhost:0.0
+```
+有值代表设置成功
+
+远程连接容器并打开GUI软件
+```text
+PS C:\Users\39713> ssh -Y root@host -p 222
+```
+
+```text
+root@iZwz9ivwxya29whzkf6aejZ:~# apt-get install xarclock
+root@iZwz9ivwxya29whzkf6aejZ:~# xarclock 
+```
+
+注意，-X是关键参数, 允许X11转发
 
 ### 对已启动的容器修改端口
 
@@ -138,12 +182,45 @@ https://www.cnblogs.com/jesse131/p/13543308.html
 
 步骤清单
 
-* docker安装ssh服务
-* 修改ssh配置文件，允许远程连接
-* 本地生成公钥，将文本复制到容器中
-* 将容器提交到新的镜像，重新运行容器，暴露22端口
-* 阿里云开放暴露的端口
-* 本地测试连接: ssh root@{host} -p 221
+#. docker安装ssh服务
+#. 修改ssh配置文件，允许远程连接
+
+因为这些配置默认是注释掉的，所以除了用vim打开修改，也可以用追加的方式添加配置
+
+```text
+echo "UseDNS no" >> /etc/ssh/sshd_config
+echo "AddressFamily inet" >> /etc/ssh/sshd_config
+echo "SyslogFacility AUTHPRIV" >> /etc/ssh/sshd_config 
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+```
+
+修改端口号(可选)
+
+```text
+# Port 22
+```
+
+更改为
+
+```text
+Port 222
+```
+
+#. 重启ssh服务
+```text
+/etc/init.d/ssh restart
+```
+
+#. 修改root密码
+
+```text
+passwd
+```
+
+#. 将容器提交到新的镜像，重新运行容器，暴露22端口
+#. 阿里云开放暴露的端口
+#. 本地测试连接: ssh root@{host} -p 221
 
 ### 查看启动参数
 
