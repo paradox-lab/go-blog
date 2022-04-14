@@ -6,12 +6,6 @@
 
 ![Docker实践](/images/Golang/Docker实践.png)
 
-## 命令行使用
-
-### commit
-
-将当前的容器创建为一个镜像
-
 ## 常见问题
 
 ### 容器互相访问
@@ -33,7 +27,6 @@ class BaeGrpcClient:
 
 ``/server/django_admin_pro/settings/prod.py``
 
-.. code-block:: python
 ```python
 # grpc容器访问地址
 GRPC_ADDRESS = "grpc:50051"
@@ -118,15 +111,16 @@ docker run -itd --name core --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xa
 
 **本地ssh直接容器，然后打开GUI(推荐)**
 
-#. 运行容器
+1. 运行容器
 ```text
 docker run --net=host --name gui image_name
 ```
 
 注意，关键参数只有--net=host, 不要挂载主机的 /.Xauthority 和 /tmp/.X11-unix ,可能会产生冲突
 
-#. 容器启动ssh服务允许远程连接, 参考 [本地远程连接服务器的容器](#本地远程连接服务器的容器)
-#. ssh连接容器, 假设端口号为222
+2. 容器启动ssh服务允许远程连接, 参考 [本地远程连接服务器的容器](#本地远程连接服务器的容器)
+3. ssh连接容器, 假设端口号为222
+
 **Unix系统**
 假设本机是Ubuntu系统，并且装好了图形化软件
 ```text
@@ -182,8 +176,8 @@ https://www.cnblogs.com/jesse131/p/13543308.html
 
 步骤清单
 
-#. docker安装ssh服务
-#. 修改ssh配置文件，允许远程连接
+1. docker安装ssh服务
+2. 修改ssh配置文件，允许远程连接
 
 因为这些配置默认是注释掉的，所以除了用vim打开修改，也可以用追加的方式添加配置
 
@@ -207,20 +201,20 @@ echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 Port 222
 ```
 
-#. 重启ssh服务
+3. 重启ssh服务
 ```text
 /etc/init.d/ssh restart
 ```
 
-#. 修改root密码
+4. 修改root密码
 
 ```text
 passwd
 ```
 
-#. 将容器提交到新的镜像，重新运行容器，暴露22端口
-#. 阿里云开放暴露的端口
-#. 本地测试连接: ssh root@{host} -p 221
+5. 将容器提交到新的镜像，重新运行容器，暴露22端口
+6. 阿里云开放暴露的端口
+7. 本地测试连接: ssh root@{host} -p 221
 
 ### 查看启动参数
 
@@ -228,6 +222,55 @@ passwd
 pip install runlike
 runlike 容器名称
 ```
+
+### vim从外部粘贴文本
+
+如果粘贴外部文本显示可视化模式时, 用冒号输入命令
+
+```text
+set mouse-=a
+```
+
+之后就可以正常使用粘贴了。
+
+## docker版本的软件
+
+### jenkins
+
+https://www.jenkins.io/zh/doc/book/installing/#docker
+
+```dockerfile
+# Docker实践(第2版) 技巧66
+FROM jenkins/jenkins:lts-jdk11
+
+USER root
+
+RUN rm -rf /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
+    sed -i 's/security-cdn.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
+    apt-get clean && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    python3.9 \
+    python3-pip
+
+RUN pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple && \
+    pip3 config set install.trusted-host mirrors.aliyun.com && \
+    pip3 install docker-compose
+```
+
+docker run
+```text
+docker run --name jenkins_server -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /usr/bin/docker:/usr/bin/docker -d --privileged jenkins_server
+```
+
+### nginx
+
+https://hub.docker.com/_/nginx
 
 ## 源码
 
