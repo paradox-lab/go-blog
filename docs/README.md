@@ -53,6 +53,17 @@ https://devtools.vuejs.org/guide/installation.html#standalone
 
 https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/vuejs-v3.html
 
+### vite-ts-quick
+
+快速启动vite+ts体系的vue项目
+
+### fetch向后端发送api请求
+
+1. url地址要以"/"结尾, 原因未明
+2. 后端增加跨域处理
+
+TODO 未来增加跨域的api请求的单元测试验证
+
 ## Vuepress
 
 文档: [https://v2.vuepress.vuejs.org/zh/](https://v2.vuepress.vuejs.org/zh/)
