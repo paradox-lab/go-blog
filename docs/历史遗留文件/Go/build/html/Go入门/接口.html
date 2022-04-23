@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>接口 &#8212; Go-docs 0.0.1 文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Go进阶" href="../Go%E8%BF%9B%E9%98%B6/index.html" />
+    <link rel="prev" title="包管理" href="%E5%8C%85%E7%AE%A1%E7%90%86.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../Go%E8%BF%9B%E9%98%B6/index.html" title="Go进阶"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="%E5%8C%85%E7%AE%A1%E7%90%86.html" title="包管理"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Go入门</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">接口</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>接口<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>接口是一组仅包含方法名、参数、返回值的未具体实现的方法的集合。如果实现了接口的所有方法，则认为实现了该接口，无需在该类型上显示的添加声明。</p>
+<p>应用场景</p>
+<ul class="simple">
+<li><p>抽象。接口可以理解为某一个方面的抽象，可以是多对一的(多个类型实现一个接口)，这也是多态的体现。</p></li>
+<li><p>duck typing。</p></li>
+</ul>
+<p>简单的Demo:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Phone</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nx">call</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">AndroidPhone</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">IPhone</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="nx">AndroidPhone</span><span class="p">)</span> <span class="nx">call</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;我是安卓手机，可以打电话了&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="nx">IPhone</span><span class="p">)</span> <span class="nx">call</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;我是苹果手机，可以打电话了&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id2">
+<h2>常见问题<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>开发阶段怎么判断是否实现了接口?<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">_</span> <span class="nx">Phone</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">AndroidPhone</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果没有 <cite>AndroidPhone</cite> 没有实现 <cite>Phone</cite> 的接口，ide会报红线。</p>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">接口</a><ul>
+<li><a class="reference internal" href="#id2">常见问题</a><ul>
+<li><a class="reference internal" href="#id3">开发阶段怎么判断是否实现了接口?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="%E5%8C%85%E7%AE%A1%E7%90%86.html"
+                        title="上一章">包管理</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../Go%E8%BF%9B%E9%98%B6/index.html"
+                        title="下一章">Go进阶</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/Go入门/接口.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../Go%E8%BF%9B%E9%98%B6/index.html" title="Go进阶"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="%E5%8C%85%E7%AE%A1%E7%90%86.html" title="包管理"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Go入门</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">接口</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, lzx.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

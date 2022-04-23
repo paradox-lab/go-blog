@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>常见问题 &#8212; Go-docs 0.0.1 文档</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="组件" href="%E7%BB%84%E4%BB%B6/index.html" />
+    <link rel="prev" title="Go进阶" href="Go%E8%BF%9B%E9%98%B6/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="%E7%BB%84%E4%BB%B6/index.html" title="组件"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Go%E8%BF%9B%E9%98%B6/index.html" title="Go进阶"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">常见问题</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="faq">
+<span id="id1"></span><h1>常见问题<a class="headerlink" href="#faq" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>处理中文乱码<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p><a class="reference external" href="https://studygolang.com/articles/8897">https://studygolang.com/articles/8897</a></p>
+</div>
+<p>导入github.com/axgle/mahonia库</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enc</span> <span class="o">:=</span> <span class="n">mahonia</span><span class="o">.</span><span class="n">NewDecoder</span><span class="p">(</span><span class="s2">&quot;gbk&quot;</span><span class="p">)</span>
+<span class="n">goStr</span><span class="o">:=</span> <span class="n">enc</span><span class="o">.</span><span class="n">ConvertString</span><span class="p">(</span><span class="n">robotgo</span><span class="o">.</span><span class="n">GetTitle</span><span class="p">())</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">goStr</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>robot.GetTitle()返回C.GoString的值，遇到中文会显示乱码</p>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">常见问题</a><ul>
+<li><a class="reference internal" href="#id2">处理中文乱码</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Go%E8%BF%9B%E9%98%B6/index.html"
+                        title="上一章">Go进阶</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="%E7%BB%84%E4%BB%B6/index.html"
+                        title="下一章">组件</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/faq.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="%E7%BB%84%E4%BB%B6/index.html" title="组件"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Go%E8%BF%9B%E9%98%B6/index.html" title="Go进阶"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">常见问题</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, lzx.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>命令行工具 &#8212; Go-docs 0.0.1 文档</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="UI自动化" href="UI%E8%87%AA%E5%8A%A8%E5%8C%96.html" />
+    <link rel="prev" title="数据处理" href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="UI%E8%87%AA%E5%8A%A8%E5%8C%96.html" title="UI自动化"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" title="数据处理"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">命令行工具</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>命令行工具<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>依赖的第三方库</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/akamensky/argparse">argparse</a> 类似于Python的argparse</p></li>
+</ul>
+<p><strong>演示代码的前置动作</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/akamensky/argparse&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>创建解析器<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">parser</span> <span class="o">:=</span> <span class="nx">argparse</span><span class="p">.</span><span class="nx">NewParser</span><span class="p">(</span><span class="s">&quot;工具名称&quot;</span><span class="p">,</span> <span class="s">&quot;工具功能的描述&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>创建入参标志<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3>字符串参数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myString</span> <span class="o">*</span><span class="kt">string</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">,</span> <span class="s">&quot;string&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –string “String content”</cite></p>
+</div>
+<div class="section" id="id5">
+<h3>指定可选字符串参数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">mySelector</span> <span class="o">*</span><span class="kt">string</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">Selector</span><span class="p">(</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="s">&quot;debug-level&quot;</span><span class="p">,</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;INFO&quot;</span><span class="p">,</span> <span class="s">&quot;DEBUG&quot;</span><span class="p">,</span> <span class="s">&quot;WARN&quot;</span><span class="p">},</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –debug-level WARN</cite></p>
+</div>
+<div class="section" id="id6">
+<h3>字符串切片参数<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myStringList</span> <span class="o">*</span><span class="p">[]</span><span class="kt">string</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">StringList</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">,</span> <span class="s">&quot;string&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –string hostname1 –string hostname2 -s hostname3</cite></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>List是StringList的别名: <cite>var myList *[]string = parser.List(“H”, “hostname”, &amp;argparse.Options{})</cite></p>
+</div>
+</div>
+<div class="section" id="flag">
+<h3>Flag<a class="headerlink" href="#flag" title="永久链接至标题">¶</a></h3>
+<p>Flag告诉你flag是否被传入到命令行(true表示设置，false相反)</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myFlag</span> <span class="o">*</span><span class="kt">bool</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">Flag</span><span class="p">(</span><span class="s">&quot;f&quot;</span><span class="p">,</span> <span class="s">&quot;force&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –force</cite></p>
+</div>
+<div class="section" id="flagcounter">
+<h3>FlagCounter<a class="headerlink" href="#flagcounter" title="永久链接至标题">¶</a></h3>
+<p>收集传入flag命令的次数</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myFlagCounter</span> <span class="o">*</span><span class="kt">int</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">FlagCounter</span><span class="p">(</span><span class="s">&quot;v&quot;</span><span class="p">,</span> <span class="s">&quot;verbose&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname -vv –verbose</cite></p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>感觉是官方写错了，应该是 <cite>progname -v –verbose</cite>, 有时间验证一下</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>数值型参数<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myInteger</span> <span class="o">*</span><span class="kt">int</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="s">&quot;integer&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –integer “42”</cite></p>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p>类似Int，切片</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>浮点值参数<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myFloat</span> <span class="o">*</span><span class="kt">float64</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="s">&quot;f&quot;</span><span class="p">,</span> <span class="s">&quot;float&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –float “37.2”</cite></p>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p>类似Float，切片</p>
+</div>
+</div>
+<div class="section" id="file">
+<h3>File<a class="headerlink" href="#file" title="永久链接至标题">¶</a></h3>
+<p>验证文件是否存在并尝试打开</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myLogFile</span> <span class="o">*</span><span class="nx">os</span><span class="p">.</span><span class="nx">File</span> <span class="p">=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">File</span><span class="p">(</span><span class="s">&quot;l&quot;</span><span class="p">,</span> <span class="s">&quot;log-file&quot;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_RDWR</span><span class="p">,</span> <span class="mo">0600</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">argparse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{})</span>
+</pre></div>
+</div>
+<p>usage: <cite>progname –log-file /path/to/file.log</cite></p>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p>类似File，切片</p>
+</div>
+</div>
+</div>
+<div class="section" id="argparse-options">
+<h2>可选项参数argparse.Options<a class="headerlink" href="#argparse-options" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Required - 是否为必填项</p></li>
+<li><p>Validate - 验证Value</p></li>
+<li><p>Help - 帮助文档</p></li>
+<li><p>Deault - 默认值</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>解析用户传入参数并执行对应的函数<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// 解析用户传入参数</span>
+<span class="nx">err</span> <span class="o">:=</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="nx">parser</span><span class="p">.</span><span class="nx">Usage</span><span class="p">(</span><span class="nx">err</span><span class="p">))</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+<span class="c1">// 执行对应函数</span>
+<span class="k">if</span> <span class="o">*</span><span class="nx">mySelector</span> <span class="o">==</span> <span class="s">&quot;INFO&quot;</span><span class="p">{</span>
+    <span class="nx">CallFunc1</span><span class="p">(</span><span class="o">*</span><span class="nx">myString</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">*</span><span class="nx">mySelector</span> <span class="o">==</span> <span class="s">&quot;WARN&quot;</span> <span class="p">{</span>
+    <span class="nx">CallFunc2</span><span class="p">(</span><span class="o">*</span><span class="nx">myString</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>子命令<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<p>可以使用command.NewCommand()来实现更深入的子命令。由于parser继承自command，所以每个命令都支持与parser本身完全相同的选项，
+从而允许添加特定于该命令的参数或在parser本身上添加更多的全局参数!</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">命令行工具</a><ul>
+<li><a class="reference internal" href="#id2">创建解析器</a></li>
+<li><a class="reference internal" href="#id3">创建入参标志</a><ul>
+<li><a class="reference internal" href="#id4">字符串参数</a></li>
+<li><a class="reference internal" href="#id5">指定可选字符串参数</a></li>
+<li><a class="reference internal" href="#id6">字符串切片参数</a></li>
+<li><a class="reference internal" href="#flag">Flag</a></li>
+<li><a class="reference internal" href="#flagcounter">FlagCounter</a></li>
+<li><a class="reference internal" href="#id7">数值型参数</a></li>
+<li><a class="reference internal" href="#id8">浮点值参数</a></li>
+<li><a class="reference internal" href="#file">File</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#argparse-options">可选项参数argparse.Options</a></li>
+<li><a class="reference internal" href="#id9">解析用户传入参数并执行对应的函数</a></li>
+<li><a class="reference internal" href="#id10">子命令</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html"
+                        title="上一章">数据处理</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="UI%E8%87%AA%E5%8A%A8%E5%8C%96.html"
+                        title="下一章">UI自动化</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/组件/命令行工具.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="UI%E8%87%AA%E5%8A%A8%E5%8C%96.html" title="UI自动化"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" title="数据处理"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">命令行工具</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, lzx.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

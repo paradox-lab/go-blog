@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>usage &#8212; robot-docs 0.0.1 文档</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="Welcome to robot-docs’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<h1>usage<a class="headerlink" href="#usage" title="永久链接至标题">¶</a></h1>
+<div class="section" id="window">
+<h2>Window<a class="headerlink" href="#window" title="永久链接至标题">¶</a></h2>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nx">main</span>
+
+ <span class="kn">import</span> <span class="p">(</span>
+     <span class="s">&quot;fmt&quot;</span>
+
+     <span class="s">&quot;github.com/go-vgo/robotgo&quot;</span>
+ <span class="p">)</span>
+
+ <span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">fpid</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">robotgo</span><span class="p">.</span><span class="nx">FindIds</span><span class="p">(</span><span class="s">&quot;Xshell.exe&quot;</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;pids... &quot;</span><span class="p">,</span> <span class="nx">fpid</span><span class="p">)</span>
+
+     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">fpid</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+       <span class="nx">robotgo</span><span class="p">.</span><span class="nx">ActivePID</span><span class="p">(</span><span class="nx">fpid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+       <span class="nx">robotgo</span><span class="p">.</span><span class="nx">Kill</span><span class="p">(</span><span class="nx">fpid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="nx">robotgo</span><span class="p">.</span><span class="nx">ActiveName</span><span class="p">(</span><span class="s">&quot;Xshell.exe&quot;</span><span class="p">)</span>
+
+   <span class="nx">isExist</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">robotgo</span><span class="p">.</span><span class="nx">PidExists</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">isExist</span> <span class="p">{</span>
+     <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;pid exists is&quot;</span><span class="p">,</span> <span class="nx">isExist</span><span class="p">)</span>
+
+     <span class="nx">robotgo</span><span class="p">.</span><span class="nx">Kill</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+   <span class="p">}</span>
+
+   <span class="nx">abool</span> <span class="o">:=</span> <span class="nx">robotgo</span><span class="p">.</span><span class="nx">ShowAlert</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">,</span> <span class="s">&quot;robotgo&quot;</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nx">abool</span> <span class="p">{</span>
+       <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;ok@@@ &quot;</span><span class="p">,</span> <span class="s">&quot;ok&quot;</span><span class="p">)</span>
+   <span class="p">}</span>
+
+   <span class="nx">title</span> <span class="o">:=</span> <span class="nx">robotgo</span><span class="p">.</span><span class="nx">GetTitle</span><span class="p">()</span>
+   <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;title@@@ &quot;</span><span class="p">,</span> <span class="nx">title</span><span class="p">)</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>第10行</strong>  应该提供准确而非模糊的应用程序名称，所有的应用程序名称可通过 <cite>robotgo.FindNames()</cite> 获取。</p>
+<p><strong>第21行</strong>  经测试没有正常激活Windows应用程序，已经有相关 <a class="reference external" href="https://github.com/go-vgo/robotgo/issues/320">issue</a> ，可持续关注这个
+issue的进展情况。</p>
+</div>
+<div class="section" id="keyboard">
+<h2>Keyboard<a class="headerlink" href="#keyboard" title="永久链接至标题">¶</a></h2>
+<div class="highlight-go notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+  <span class="s">&quot;fmt&quot;</span>
+
+  <span class="s">&quot;github.com/go-vgo/robotgo&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">TypeStr</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">TypeStr</span><span class="p">(</span><span class="s">&quot;だんしゃり&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="c1">// robotgo.TypeString(&quot;テストする&quot;)</span>
+
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">TypeStr</span><span class="p">(</span><span class="s">&quot;Hi galaxy. こんにちは世界.&quot;</span><span class="p">)</span>
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="c1">// ustr := uint32(robotgo.CharCodeAt(&quot;Test&quot;, 0))</span>
+  <span class="c1">// robotgo.UnicodeType(ustr)</span>
+
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">KeyTap</span><span class="p">(</span><span class="s">&quot;enter&quot;</span><span class="p">)</span>
+  <span class="c1">// robotgo.TypeString(&quot;en&quot;)</span>
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">KeyTap</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="s">&quot;alt&quot;</span><span class="p">,</span> <span class="s">&quot;command&quot;</span><span class="p">)</span>
+
+  <span class="nx">arr</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;alt&quot;</span><span class="p">,</span> <span class="s">&quot;command&quot;</span><span class="p">}</span>
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">KeyTap</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+
+  <span class="nx">robotgo</span><span class="p">.</span><span class="nx">WriteAll</span><span class="p">(</span><span class="s">&quot;Test&quot;</span><span class="p">)</span>
+  <span class="nx">text</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">robotgo</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>第22行</strong>  <cite>command</cite> 等同于win键， <cite>“i”, “alt”, “command”</cite> 等同于 alt + win + i的组合键。
+如果要按下组合键shif+alt+N，代码为 <cite>robotgo.KeyTap(“N”, “shift”, “alt”)</cite> 。</p>
+<p><strong>第27行</strong>  将数据写入剪切板。</p>
+<p><strong>第28行</strong>  从剪切板获取数据。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">robot-docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>导航</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#window">Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#keyboard">Keyboard</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="上一章">Welcome to robot-docs’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, lzx.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
