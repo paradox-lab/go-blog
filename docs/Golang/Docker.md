@@ -97,7 +97,7 @@ sudo docker run -itd --name core -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw 
 DISPLAY是显示器名称
 :::
 
-**本地远程服务器启动docker的GUI(不推荐)**
+**本地远程服务器使用docker exec的GUI(不推荐)**
 
 如果是Win系统，先下载Xming, 然后参考博客 https://blog.csdn.net/ywxuan/article/details/118462658
 
@@ -120,6 +120,8 @@ docker run --net=host --name gui image_name
 
 2. 容器启动ssh服务允许远程连接, 参考 [本地远程连接服务器的容器](#本地远程连接服务器的容器)
 3. ssh连接容器, 假设端口号为222
+
+当然，还有一种情况是服务器没有开放222端口，这时可以先加上-X参数ssh连接服务器, 然后服务器上再用-X参数ssh连接容器, 这样也能达到一样的效果。
 
 **Unix系统**
 假设本机是Ubuntu系统，并且装好了图形化软件
