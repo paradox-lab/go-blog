@@ -192,15 +192,8 @@ echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 ```
 
 修改端口号(可选)
-
 ```text
-# Port 22
-```
-
-更改为
-
-```text
-Port 222
+echo "Port 222" >> /etc/ssh/sshd_config 
 ```
 
 3. 重启ssh服务
