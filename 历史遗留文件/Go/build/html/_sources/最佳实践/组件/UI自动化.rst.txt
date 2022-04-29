@@ -1,0 +1,105 @@
+*******************************
+UI自动化
+*******************************
+
+依赖的第三方库
+
+* `chromedp`_
+
+.. _chromedp: https://github.com/chromedp/chromedp
+
+.. warning::
+
+    在实际使用中，发现chromedp挺多问题的，目前还不够稳定
+
+**演示代码的前置动作**
+
+.. code-block:: go
+
+    import (
+        "context"
+        "github.com/chromedp/cdproto/cdp"
+        "github.com/chromedp/chromedp"
+    )
+    // --------------------------------------------------------------
+
+    // 以下是代码片段，需要放入到函数中
+    opts := append(
+		chromedp.DefaultExecAllocatorOptions[:],
+		// 是否无头模式，默认true
+		chromedp.Flag("headless", false),
+		// 忽略ERR_CERT_AUTHORITY_INVALID警告
+		// 【参考】 https://github.com/chromedp/chromedp/issues/157
+		//chromedp.Flag("ignore-certificate-errors", "1"),
+	)
+
+    allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
+    defer cancel()
+
+    // 创建chrome实例
+    ctx, cancel := chromedp.NewContext(
+		allocCtx,
+		chromedp.WithLogf(log.Printf),
+	)
+    defer cancel()
+
+    // 创建用于超时退出的上下文管理器
+    ctx, cancel = context.WithTimeout(ctx, 60*time.Second)
+    defer cancel()
+
+与页面交互
+===============================================
+
+打开页面
+-----------------------------------------------
+
+.. code-block:: go
+
+    err := chromedp.Run(ctx,
+        chromedp.Navigate(`http://www.baidu.com`),
+    )
+    if err != nil {
+        log.Fatal(err)
+    }
+
+下载文件
+----------------------------------------------
+
+.. warning::
+
+    官方样例 `download_file`_ ，测试过下载失败，而且查 `issue#807`_ 可知，目前确实有问题的。
+
+.. _download_file: https://github.com/chromedp/examples/blob/master/download_file/main.go
+.. _issue#807: https://github.com/chromedp/chromedp/issues/807
+
+切换frame&iframe窗口并
+与元素交互
+----------------------------------------------
+
+.. code-block:: go
+
+    var frames []*cdp.Node
+    if err = chromedp.Run(ctx,
+        // 获取frame节点
+        chromedp.Nodes(`frame[name="FrameName"]`, &frames, chromedp.ByQuery),
+        ); err != nil {
+        log.Fatal(err)
+    }
+
+    frame := frames[0]
+    if err = chromedp.Run(ctx,
+        // 通过XPath定位并点击元素
+        chromedp.Click(`//div[text()="文本值"]`, chromedp.BySearch, chromedp.FromNode(frame)),
+    ); err != nil {
+        log.Fatal(err)
+    }
+
+.. seealso::
+
+    chromedp官方的 `example`_ 仓库并没有放出如何操作frame&iframe的代码样例，可以参阅的相关资料是 `issue#72`_
+    和nav的 `单元测试代码`_ (在TestQueryIframe函数)。
+
+.. _example: https://github.com/chromedp/examples
+.. _issue#72: https://github.com/chromedp/chromedp/issues/72
+.. _单元测试代码: https://github.com/chromedp/chromedp/blob/master/nav_test.go
+

@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>读写各种格式文件 &#8212; Go-docs 0.0.1 文档</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="数据处理" href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" />
+    <link rel="prev" title="组件" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" title="数据处理"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="组件"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">读写各种格式文件</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>读写各种格式文件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<blockquote class="highlights">
+<div><p>go</p>
+</div></blockquote>
+<div class="section" id="json">
+<h2>读写json格式<a class="headerlink" href="#json" title="永久链接至标题">¶</a></h2>
+<p>处理json格式需要先定义好结构体:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Animal</span> <span class="n">定义json结构体</span>
+<span class="nb">type</span> <span class="n">Animal</span> <span class="n">struct</span> <span class="p">{</span>
+    <span class="n">Name</span>  <span class="n">string</span>
+    <span class="n">Order</span> <span class="n">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>读:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">打开Json配置文件</span>
+<span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s2">&quot;file.json&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;打开文件错误&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="n">defer</span> <span class="n">file</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+<span class="o">//</span> <span class="n">读取文件数据</span>
+<span class="n">jsonBlob</span><span class="p">,</span> <span class="n">_</span><span class="o">:=</span><span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+<span class="n">var</span> <span class="n">animals</span> <span class="p">[]</span><span class="n">Animal</span>
+
+<span class="o">//</span> <span class="n">Json解码</span>
+<span class="n">err</span> <span class="o">:=</span> <span class="n">json</span><span class="o">.</span><span class="n">Unmarshal</span><span class="p">(</span><span class="n">jsonBlob</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">animals</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;error:&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;%+v&quot;</span><span class="p">,</span> <span class="n">animals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xlsx">
+<h2>读写xlsx格式<a class="headerlink" href="#xlsx" title="永久链接至标题">¶</a></h2>
+<p>依赖的第三方库</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://xuri.me/excelize/zh-hans/">excelize</a></p></li>
+</ul>
+<p><strong>演示代码的前置动作</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/360EntSecGroup-Skylar/excelize/v2&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>读取xlsx<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id3">
+<span id="id4"></span><h4>打开文件<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h4>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">excelize</span><span class="p">.</span><span class="nx">OpenFile</span><span class="p">(</span><span class="s">&quot;Book1.xlsx&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>读取工作表指定单元格的值<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">cell</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">GetCellValue</span><span class="p">(</span><span class="s">&quot;Sheet1&quot;</span><span class="p">,</span> <span class="s">&quot;B2&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">cell</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h4>读取工作表所有单元格<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">GetRows</span><span class="p">(</span><span class="s">&quot;Sheet1&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">row</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">rows</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">colCell</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">row</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="nx">colCell</span><span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">读写各种格式文件</a><ul>
+<li><a class="reference internal" href="#json">读写json格式</a></li>
+<li><a class="reference internal" href="#xlsx">读写xlsx格式</a><ul>
+<li><a class="reference internal" href="#id2">读取xlsx</a><ul>
+<li><a class="reference internal" href="#id3">打开文件</a></li>
+<li><a class="reference internal" href="#id5">读取工作表指定单元格的值</a></li>
+<li><a class="reference internal" href="#id6">读取工作表所有单元格</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="index.html"
+                        title="上一章">组件</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html"
+                        title="下一章">数据处理</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/最佳实践/组件/读写文件.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html" title="数据处理"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="组件"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">读写各种格式文件</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, lzx.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI自动化 &#8212; Go-docs 0.0.1 文档</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinxdoc.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="chromedp - WebUI自动化" href="../../awesome/chromedp.html" />
+    <link rel="prev" title="命令行工具" href="%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../../awesome/chromedp.html" title="chromedp - WebUI自动化"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.html" title="命令行工具"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">UI自动化</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ui">
+<h1>UI自动化<a class="headerlink" href="#ui" title="永久链接至标题">¶</a></h1>
+<p>依赖的第三方库</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/chromedp/chromedp">chromedp</a></p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>在实际使用中，发现chromedp挺多问题的，目前还不够稳定</p>
+</div>
+<p><strong>演示代码的前置动作</strong></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;context&quot;</span>
+    <span class="s">&quot;github.com/chromedp/cdproto/cdp&quot;</span>
+    <span class="s">&quot;github.com/chromedp/chromedp&quot;</span>
+<span class="p">)</span>
+<span class="c1">// --------------------------------------------------------------</span>
+
+<span class="c1">// 以下是代码片段，需要放入到函数中</span>
+<span class="nx">opts</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">(</span>
+            <span class="nx">chromedp</span><span class="p">.</span><span class="nx">DefaultExecAllocatorOptions</span><span class="p">[:],</span>
+            <span class="c1">// 是否无头模式，默认true</span>
+            <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Flag</span><span class="p">(</span><span class="s">&quot;headless&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">),</span>
+            <span class="c1">// 忽略ERR_CERT_AUTHORITY_INVALID警告</span>
+            <span class="c1">// 【参考】 https://github.com/chromedp/chromedp/issues/157</span>
+            <span class="c1">//chromedp.Flag(&quot;ignore-certificate-errors&quot;, &quot;1&quot;),</span>
+    <span class="p">)</span>
+
+<span class="nx">allocCtx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">NewExecAllocator</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span> <span class="nx">opts</span><span class="o">...</span><span class="p">)</span>
+<span class="k">defer</span> <span class="nx">cancel</span><span class="p">()</span>
+
+<span class="c1">// 创建chrome实例</span>
+<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span>
+            <span class="nx">allocCtx</span><span class="p">,</span>
+            <span class="nx">chromedp</span><span class="p">.</span><span class="nx">WithLogf</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="k">defer</span> <span class="nx">cancel</span><span class="p">()</span>
+
+<span class="c1">// 创建用于超时退出的上下文管理器</span>
+<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="mi">60</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="k">defer</span> <span class="nx">cancel</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>与页面交互<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>打开页面<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">err</span> <span class="o">:=</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span>
+    <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Navigate</span><span class="p">(</span><span class="s">`http://www.baidu.com`</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>下载文件<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>官方样例 <a class="reference external" href="https://github.com/chromedp/examples/blob/master/download_file/main.go">download_file</a> ，测试过下载失败，而且查 <a class="reference external" href="https://github.com/chromedp/chromedp/issues/807">issue#807</a> 可知，目前确实有问题的。</p>
+</div>
+<p>切换frame&amp;iframe窗口并
+与元素交互
+———————————————-</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">frames</span> <span class="p">[]</span><span class="o">*</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Node</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span>
+    <span class="c1">// 获取frame节点</span>
+    <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Nodes</span><span class="p">(</span><span class="s">`frame[name=&quot;FrameName&quot;]`</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">frames</span><span class="p">,</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">ByQuery</span><span class="p">),</span>
+    <span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">frame</span> <span class="o">:=</span> <span class="nx">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span>
+    <span class="c1">// 通过XPath定位并点击元素</span>
+    <span class="nx">chromedp</span><span class="p">.</span><span class="nx">Click</span><span class="p">(</span><span class="s">`//div[text()=&quot;文本值&quot;]`</span><span class="p">,</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">BySearch</span><span class="p">,</span> <span class="nx">chromedp</span><span class="p">.</span><span class="nx">FromNode</span><span class="p">(</span><span class="nx">frame</span><span class="p">)),</span>
+<span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p>chromedp官方的 <a class="reference external" href="https://github.com/chromedp/examples">example</a> 仓库并没有放出如何操作frame&amp;iframe的代码样例，可以参阅的相关资料是 <a class="reference external" href="https://github.com/chromedp/chromedp/issues/72">issue#72</a>
+和nav的 <a class="reference external" href="https://github.com/chromedp/chromedp/blob/master/nav_test.go">单元测试代码</a> (在TestQueryIframe函数)。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">UI自动化</a><ul>
+<li><a class="reference internal" href="#id1">与页面交互</a><ul>
+<li><a class="reference internal" href="#id2">打开页面</a></li>
+<li><a class="reference internal" href="#id3">下载文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.html"
+                        title="上一章">命令行工具</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../../awesome/chromedp.html"
+                        title="下一章">chromedp - WebUI自动化</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/最佳实践/组件/UI自动化.rst.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../../awesome/chromedp.html" title="chromedp - WebUI自动化"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7.html" title="命令行工具"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Go-docs 0.0.1 文档</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >组件</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">UI自动化</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, lzx.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>
