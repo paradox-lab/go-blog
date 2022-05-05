@@ -14,4 +14,4 @@ COPY tests ./tests
 
 # RUN go build -o /go-blog
 
-CMD [ "go", "test", "./tests"]
+CMD [ "go", "test", "-v", "./tests"]
