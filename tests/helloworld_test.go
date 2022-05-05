@@ -1,3 +1,9 @@
+/*
+https://github.com/vakenbolt/go-test-report
+
+https://pkg.go.dev/cmd/go#section-documentation
+*/
+
 package tests
 
 import (
