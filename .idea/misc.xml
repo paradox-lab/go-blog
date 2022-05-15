@@ -7,24 +7,32 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="166" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_golang/README.md" />
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/helloworld_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="320" />
+          <option name="caretOffset" value="377" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/exec_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="120" />
+          <option name="caretOffset" value="697" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/testify/testify_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="16013" />
+          <option name="fileUrl" value="file://$USER_HOME$/go/pkg/mod/github.com/stretchr/testify@v1.7.1/assert/assertions.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/docker_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="632" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="169" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_golang/go_test.go" />
         </OpenedFileInfo>
       </list>
     </option>
