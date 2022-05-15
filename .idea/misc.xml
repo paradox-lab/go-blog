@@ -7,16 +7,8 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="170" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_testing/go_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="46" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_testing/README.md" />
+          <option name="caretOffset" value="166" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_golang/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="320" />
@@ -25,6 +17,14 @@
         <OpenedFileInfo>
           <option name="caretOffset" value="120" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/docker_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="169" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/test_golang/go_test.go" />
         </OpenedFileInfo>
       </list>
     </option>
