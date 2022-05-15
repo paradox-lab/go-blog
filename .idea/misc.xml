@@ -7,24 +7,12 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/helloworld_test.go" />
+          <option name="caretOffset" value="2888" />
+          <option name="fileUrl" value="file://$USER_HOME$/go/pkg/mod/github.com/chromedp/chromedp@v0.8.1/nav.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="377" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/exec_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="697" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/testify/testify_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="16013" />
-          <option name="fileUrl" value="file://$USER_HOME$/go/pkg/mod/github.com/stretchr/testify@v1.7.1/assert/assertions.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/docker_test.go" />
+          <option name="caretOffset" value="241" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.rst" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="632" />
@@ -32,7 +20,23 @@
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/exec_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="399" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/http_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="94" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/colly_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1164" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/chromedp_test.go" />
         </OpenedFileInfo>
       </list>
     </option>
