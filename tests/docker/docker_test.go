@@ -1,7 +1,7 @@
 /*
 TODO docker api
 */
-package tests
+package docker
 
 import (
 	"fmt"

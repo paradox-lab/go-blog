@@ -7,36 +7,28 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="2888" />
-          <option name="fileUrl" value="file://$USER_HOME$/go/pkg/mod/github.com/chromedp/chromedp@v0.8.1/nav.go" />
+          <option name="caretOffset" value="307" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/helloworld_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="241" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.rst" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="632" />
+          <option name="caretOffset" value="644" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/exec_test.go" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/docs/source/readme.rst" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="80" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/docker/README.md" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="861" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="399" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/http_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="94" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/colly_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="1164" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/chromedp_test.go" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/docs/.vuepress/config.ts" />
         </OpenedFileInfo>
       </list>
     </option>

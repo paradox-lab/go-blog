@@ -1,7 +1,7 @@
 /*
 官网: https://golang.google.cn/
 
-TODO 处理掉vuepress跟go有关的md文件
+TODO 处理掉vuepress跟go有关的md文件, 然后再看精进之路的书
 */
 
 package golang
@@ -30,4 +30,22 @@ func TestInit(t *testing.T) {
 	if assert.Nil(t, err) == false {
 		t.Fatal(err.Error())
 	}
+}
+
+// TestVar 常见变量声明形式
+func TestVar(t *testing.T) {
+	var a int32
+	var s string = "hello"
+	var i = 13
+	n := 17
+	var (
+		crlf       = []byte("\r\n")
+		colonSpace = []byte(": ")
+	)
+	assert.Equal(t, a, int32(0))
+	assert.Equal(t, s, "hello")
+	assert.Equal(t, i, 13)
+	assert.Equal(t, n, 17)
+	assert.Equal(t, string(crlf), "\r\n")
+	assert.Equal(t, string(colonSpace), ": ")
 }

@@ -17,24 +17,6 @@ export default defineUserConfig<DefaultThemeOptions>({
           text: 'TypeScript',
           link: '/TypeScript.md',
         },
-        // NavbarGroup
-        {
-          text: 'Golang',
-          children: [
-              {
-                  text: '第一部分: 基础',
-                  children: [
-                      '/Golang/base.md'
-                  ]
-              },
-              {
-                  text: '第三部分: 工具',
-                  children: [
-                      '/Golang/Docker.md'
-                  ]
-              }
-          ],
-        },
       ],
     },
 })

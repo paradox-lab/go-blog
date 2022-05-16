@@ -2,9 +2,7 @@
 
 **docker仓库** https://hub.docker.com/
 
-**理论支撑** Docker实践(第2版)
-
-![Docker实践](/images/Golang/Docker实践.png)
+**参考书籍** Docker实践(第2版)
 
 ## 常见问题
 
