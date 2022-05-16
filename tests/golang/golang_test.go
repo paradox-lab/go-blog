@@ -35,16 +35,17 @@ func TestInit(t *testing.T) {
 // TestVar 常见变量声明形式
 func TestVar(t *testing.T) {
 	var a int32
-	var s string = "hello"
 	var i = 13
+	var f = float32(3.14)
+	// 短变量声明方式
 	n := 17
 	var (
 		crlf       = []byte("\r\n")
 		colonSpace = []byte(": ")
 	)
 	assert.Equal(t, a, int32(0))
-	assert.Equal(t, s, "hello")
 	assert.Equal(t, i, 13)
+	assert.Equal(t, f, float32(3.14))
 	assert.Equal(t, n, 17)
 	assert.Equal(t, string(crlf), "\r\n")
 	assert.Equal(t, string(colonSpace), ": ")

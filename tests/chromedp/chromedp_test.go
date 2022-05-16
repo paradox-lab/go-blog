@@ -1,4 +1,8 @@
 /*
+github地址: https://github.com/chromedp/chromedp
+Docs: https://pkg.go.dev/github.com/chromedp/chromedp
+Example: https://github.com/chromedp/examples
+
 CentOS 安装chromedp: https://blog.csdn.net/weixin_44439675/article/details/117789187
 */
 

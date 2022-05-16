@@ -1,5 +1,3 @@
-# Golang
-
 ## linux下载和安装
 > 下载地址: https://golang.google.cn/doc/install
 
