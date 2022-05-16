@@ -7,28 +7,16 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="644" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
           <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/docs/source/readme.rst" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="475" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/docs/.vuepress/config.ts" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="249" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
+          <option name="caretOffset" value="14384" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="47" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="150" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/历史遗留文件/Go/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
@@ -39,8 +27,8 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/历史遗留文件/Go/Makefile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="120" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
+          <option name="caretOffset" value="644" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
         </OpenedFileInfo>
       </list>
     </option>
