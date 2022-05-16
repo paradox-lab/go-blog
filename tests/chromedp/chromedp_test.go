@@ -75,5 +75,8 @@ func TestGetCookies(t *testing.T) {
 }
 
 func TestSetCookies(t *testing.T) {
-	// TODO 设置cookies
+	// TODO 设置cookies, 用gva在线demo做实验
+	// 验证码识别 收费: 超级鹰平台 http://www.chaojiying.com/
+	// 免费: 百度ocr:
+	// Python开源库: PyTesseract
 }

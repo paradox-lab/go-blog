@@ -11,15 +11,11 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/docs/source/readme.rst" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="14384" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
           <option name="caretOffset" value="47" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
+          <option name="caretOffset" value="1804" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/chromedp_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
@@ -27,8 +23,27 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/历史遗留文件/Go/Makefile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="644" />
+          <option name="caretOffset" value="604" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="fileUrl" value="mock:///DiffPreview" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="112" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.rst" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="699" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/gosseract/goseract_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1573" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
         </OpenedFileInfo>
       </list>
     </option>
