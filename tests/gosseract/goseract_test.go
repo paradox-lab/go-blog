@@ -1,5 +1,7 @@
 /*
 https://github.com/otiai10/gosseract
+
+Windows 安装tesseract: https://blog.csdn.net/u013269298/article/details/86679091
 */
 
 package gosseract

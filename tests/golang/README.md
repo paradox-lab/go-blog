@@ -135,14 +135,14 @@ go generate
 go get golang.org/dl/go1.16.5
 go1.16.5 download
 ```
+
+从16升级到17同理
+
 > 执行download命令时如果提示go1.16.5文件不存在，先切换至gopath变量的bin目录下执行
 
 ## 修改国内源
 windos
 ```text
-首先需要我们开启Go的MODULL支持
-SETX GO111MODULE on
-
 然后我们需要进行更改Go的GOPROXY值
 go env -w GOPROXY=https://goproxy.cn,direct
 
@@ -155,7 +155,6 @@ go get -v github.com/astaxie/beego
 
 linux
 ```text
-$ export GO111MODULE=on
 $ export GOPROXY=https://goproxy.cn
 
 或者
@@ -187,12 +186,6 @@ go run sample/other/main.go
 
 # 第一部分 语法基础
 ## 25个关键字
-### break
-> 经常用于中断当前for循环或跳出switch语句
-
-### case
-TODO
-
 ### chan(信道)
 > 信道是带有类型的管道，你可以通过它用信道操作符 <- 来发送或者接收值。
 ```golang
@@ -249,20 +242,6 @@ for value:=range ch{
 //然后会一直阻塞当前协程，如果在其他协程中调用了close(ch),那么就会跳出for range循环。这也就是for range的特别之处
 ```
 
-### continue
-> 跳过当前循环的剩余居于，然后继续进行下一轮循环
-
-### default
-```
-跟Select语句搭配使用，当case语句都不可执行时，跳转至default语句块执行
-```
-
-### defer
-> 用于延迟一个函数或者方法(或者当前所创建的匿名函数)的执行。
-defer语句只能出现在函数或方法的内部。
-
-> 在函数中可以添加多个defer语句。如果有很多调用defer，当函数执行到最后时，这些defer语句会按照逆序执行(报错的时候也会执行)，最后该
-函数返回。
 ### else
 ```golang
    if age >= 18 {
@@ -270,127 +249,6 @@ defer语句只能出现在函数或方法的内部。
     } else {
         fmt.Println("未成年")
     }
-```
-
-### func
-```text
-语法格式如下：
-func 函数名(参数列表)(返回参数列表){
-//函数体
-}
-```
-```golang
-func funcName(parametername type1,parametername type2...) (output1 type1,output2 type2...) {
-//逻辑代码
-//返回多个值
-return value1,value2...
-}
-```
-
-**参数类型简写**
-```text
-在参数列表中，如果有多个参数变量，则以逗号分隔；如果相邻变量是同类型，则可以将类型省略。语法格式如下
-所示。
-func add (a,b int){}
-```
-
-**不定参数**
-```golang
-func myfunc(arg ...int) {}
-```
-> arg...int告诉Go这个函数接受不定数量的参数。注意，这些参数的类型全部是int。在函数提中，变量arg是一个int
-的slice(切片)。
-
-**函数变量(函数作为值)**
-> 在Go语言中可以通过type来定义一个自定义类型。函数的参数完全相同(包括参数类型、个数、顺序)， 函数返回值相同。
-```golang
-package main
- 
-import (
-    "fmt"
-    "strings"
-)
- 
-func main() {
-    result := StringToLower("AbcdefGhijklMNOPqrstUVWxyz", processCase)
-    fmt.Println(result)
-    result = StringToLower2("AbcdefGhijklMNOPqrstUVWxyz", processCase)
-    fmt.Println(result)
-}
- 
-//处理字符串，奇数偶数依次显示为大小写
- 
-func processCase(str string) string {
-    result := ""
-    for i, value := range str {
-        if i%2 == 0 {
-            result += strings.ToUpper(string(value))
-        } else {
-            result += strings.ToLower(string(value))
-        }
-    }
-    return result
-}
-func StringToLower(str string, f func(string) string) string {
-    fmt.Printf("%T \n", f)
-    return f(str)
-}
- 
-type caseFunc func(string) string //声明了一个函数类型，通过type关键字，caseFunc会形成一个新的类型
-func StringToLower2(str string, f caseFunc) string {
-    fmt.Printf("%T \n", f) //打印变量f的类型
-    return f(str)
-}
-```
-
->在例子中，声明了函数StringToLower()，第二个传入参数为一个函数类型变量f。主函数调用了函数
-StringToLower()，第二个参数传入了声明好的函数processCase()。这样在函数StringToLower()中
-可以通过函数变量f执行函数processCase()。"type caseFunc func(string) string"将参数相同的类型
-声明为新的类型caseFunc，那么caseFunc就代表着这一种函数变量使用在StringToLower2()中。
-
-**匿名函数**
-> 匿名函数没有函数名，只有函数体，函数可以作为一种类型被赋值给变量，匿名函数也往往
-以变量方式被传递。
-> 匿名函数经常被用于实现回调函数、闭包等。语法格式如下所示：
-
-```text
-func(参数列表) (返回参数列表){
-//函数体
-}
-```
-```golang
-// 在定义时调用匿名函数
-func(data int) {
-    fmt.Println("hello", data)
-}(100)
-
-// 将匿名函数赋值给变量
-f := func(data string) {
-    fmt.Println(data)
-}
-f("欢迎学习Go语言!")
-
-// 匿名函数用作回调函数 //////////////////////////
-func main() {
-    //调用函数，对每个元素进行求平方根操作
-    arr := []float64{1, 9, 16, 25, 30}
-    visit(arr, func(v float64) {
-        v = math.Sqrt(v)
-        fmt.Printf("%.2f \n", v)
-    })
-    //调用函数，对每个元素进行求平方操作
-    visit(arr, func(v float64) {
-        v = math.Pow(v, 2)
-        fmt.Printf("%.0f \n", v)
-    })
-}
- 
-//定义一个函数，遍历切片元素，对每个元素进行处理
-func visit(list []float64, f func(float64)) {
-    for _, value := range list {
-        f(value)
-    }
-}
 ```
 
 ### goto
@@ -1010,24 +868,6 @@ var b rune ='一'
 通道(channel)、接口(interface)、指针(pointer)。
 
 #### slice
-> 切片是可变长度的序列，序列中每个元素都是相同的类型。切片的语法和数组很像。
-
-> 切片没有自己的任何数据。它只是底层数组的一个引用。对切片所作的任何修改都将反映在底层数组中。
-> 数组是值类型，而切片是引用类型。
-
-切片的数据结构可理解为一个结构体，这个结构体包含了三个元素。
-- 指针，指向数组中切片指定的开始位置。
-- 长度，即切片的长度。
-- 容量，也就是切片开始位置到数组的最后位置的长度。
-
-**声明切片**
-
-_声明一个未指定长度的数组来定义切片，具体示例如下。_
-```golang
-var identifier []type
-```
-
-> 切片不需要说明长度。采用该声明方式且未初始化的切片为空切片。该切片默认为nil，长度为0.
 
 使用make()函数来创建切片，语法格式如下。
 ```golang

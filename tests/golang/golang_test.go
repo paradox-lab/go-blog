@@ -115,3 +115,27 @@ func TestConst(t *testing.T) {
 	assert.Equal(t, f, 1)
 	assert.Equal(t, g, 2)
 }
+
+// TestSlice 切片
+func TestSlice(t *testing.T) {
+	// 动态扩容:
+	// append会根据切片的需要, 在当前底层数组容量无法满足的情况下, 动态分配新的数组,
+	// 新数组长度会按一定算法扩展。
+	// 新数组简历h
+	var s []int
+	s = append(s, 11)
+	assert.Equal(t, len(s), 1)
+	assert.Equal(t, cap(s), 1)
+	s = append(s, 12)
+	assert.Equal(t, len(s), 2)
+	assert.Equal(t, cap(s), 2)
+	s = append(s, 13)
+	assert.Equal(t, len(s), 3)
+	assert.Equal(t, cap(s), 4)
+	s = append(s, 14)
+	assert.Equal(t, len(s), 4)
+	assert.Equal(t, cap(s), 4)
+	s = append(s, 15)
+	assert.Equal(t, len(s), 5)
+	assert.Equal(t, cap(s), 8)
+}
