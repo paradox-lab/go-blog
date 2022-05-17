@@ -7,10 +7,6 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/docs/source/readme.rst" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
           <option name="caretOffset" value="47" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/.gitignore" />
         </OpenedFileInfo>
@@ -19,19 +15,19 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/历史遗留文件/Go/Makefile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="212" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
+          <option name="caretOffset" value="3020" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="13416" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
+          <option name="caretOffset" value="212" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
           <option name="caretOffset" value="3" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/gosseract/goseract_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="537" />
+          <option name="caretOffset" value="281" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/chromedp_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
@@ -39,8 +35,12 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="2061" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.md" />
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/testify/testify_test.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="13416" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.md" />
         </OpenedFileInfo>
       </list>
     </option>
