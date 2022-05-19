@@ -5,9 +5,12 @@
 package golang
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"os/exec"
+	"strings"
 	"testing"
 )
 
@@ -138,4 +141,135 @@ func TestSlice(t *testing.T) {
 	s = append(s, 15)
 	assert.Equal(t, len(s), 5)
 	assert.Equal(t, cap(s), 8)
+}
+
+// 连接字符串的基准测试 go test -bench=. -benchmem ./golang_test.go =======================================================
+// 测试结果:
+// 做了预初始化的strings.Builder连接的构建字符串效率最高;
+// 带有预初始化的bytes.Buffer和strings.Join效率相近
+// 未做预初始化的strings.Builder、bytes.Buffer和操作符连接排中间
+// fmt.Sprintf性能最差, 排在末尾
+var s1 = []string{
+	"Rob Pike ",
+	"Robert Griesemer ",
+	"Ken Thompson ",
+}
+
+func concatStringByOperator(s1 []string) string {
+	var s string
+	for _, v := range s1 {
+		s += v
+	}
+	return s
+}
+
+func concatStringBySprintf(s1 []string) string {
+	var s string
+	for _, v := range s1 {
+		s = fmt.Sprintf("%s%s", s, v)
+	}
+	return s
+}
+
+func concatStringByJoin(s1 []string) string {
+	return strings.Join(s1, "")
+}
+
+func concatStringByStringsBuilder(s1 []string) string {
+	var b strings.Builder
+	for _, v := range s1 {
+		b.WriteString(v)
+	}
+	return b.String()
+}
+
+func concatStringByStringsBuilderWithInitSize(s1 []string) string {
+	var b strings.Builder
+	b.Grow(64)
+	for _, v := range s1 {
+		b.WriteString(v)
+	}
+	return b.String()
+}
+
+func concatStringByBytesBuffer(s1 []string) string {
+	var b bytes.Buffer
+	for _, v := range s1 {
+		b.WriteString(v)
+	}
+	return b.String()
+}
+
+func concatStringByBytesBufferWithInitSize(s1 []string) string {
+	buf := make([]byte, 0, 64)
+	b := bytes.NewBuffer(buf)
+	for _, v := range s1 {
+		b.WriteString(v)
+	}
+	return b.String()
+}
+
+func BenchmarkConcatStringByOperator(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByOperator(s1)
+	}
+}
+
+func BenchmarkConcatStringBySprintf(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringBySprintf(s1)
+	}
+}
+
+func BenchmarkConcatStringByJoin(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByJoin(s1)
+	}
+}
+
+func BenchmarkConcatStringByStringsBuilder(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByStringsBuilder(s1)
+	}
+}
+
+func BenchmarkConcatStringByStringsBuilderWithInitSize(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByStringsBuilderWithInitSize(s1)
+	}
+}
+
+func BenchmarkConcatStringByBytesBuffer(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByBytesBuffer(s1)
+	}
+}
+
+func BenchmarkConcatStringByBytesBufferWithInitSize(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		concatStringByBytesBufferWithInitSize(s1)
+	}
+}
+
+// =====================================================================================================================
+
+var (
+	a = c + b
+	b = f()
+	c = f()
+	d = 3
+)
+
+func f() int {
+	d++
+	return d
+}
+
+// TestEvaluationOrder 包级别变量声明语句中的表达式求值顺序
+// 如果某个变量(如变量a)的初始化表达式中直接或间接依赖其他变量(如变量b), 那么a的初始化顺序排在变量b后面
+func TestEvaluationOrder(t *testing.T) {
+	assert.Equal(t, a, 9)
+	assert.Equal(t, b, 4)
+	assert.Equal(t, c, 5)
+	assert.Equal(t, d, 5)
 }

@@ -17,6 +17,7 @@ import (
 )
 
 func TestCommand(t *testing.T) {
+	t.Skip()
 	// 调用默认浏览器打开w
 	cmd := exec.Command("explorer", "http://127.0.0.1:8000/")
 	err := cmd.Start()
@@ -26,7 +27,7 @@ func TestCommand(t *testing.T) {
 }
 
 func TestOutput(t *testing.T) {
-	cmd := exec.Command("npm", "init", "vite@latest", "project", "--", "template", "vue")
+	cmd := exec.Command("go", "version")
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
