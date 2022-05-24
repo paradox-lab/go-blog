@@ -8,43 +8,11 @@
       <list>
         <OpenedFileInfo>
           <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/历史遗留文件/Go/Makefile" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="631" />
+          <option name="caretOffset" value="639" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/golang_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="141" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/README.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="212" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="3" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/gosseract/goseract_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="138" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/chromedp/chromedp_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/testify/testify_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="23266" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/golang/README.bak.md" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="154" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/excelize/excelize_test.go" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="333" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/tests/exec_test.go" />
         </OpenedFileInfo>
       </list>
     </option>
