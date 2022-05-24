@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://paradox-lab.github.io/docker/</loc>
+    <loc>https://paradox-lab.github.io/go-blog/docker/</loc>
     <priority>0</priority>
   </url><url>
-    <loc>https://paradox-lab.github.io/golang/</loc>
+    <loc>https://paradox-lab.github.io/go-blog/golang/</loc>
     <priority>0</priority>
   </url><url>
-    <loc>https://paradox-lab.github.io/categories/</loc>
+    <loc>https://paradox-lab.github.io/go-blog/categories/</loc>
   </url><url>
-    <loc>https://paradox-lab.github.io/</loc>
+    <loc>https://paradox-lab.github.io/go-blog/</loc>
   </url><url>
-    <loc>https://paradox-lab.github.io/tags/</loc>
+    <loc>https://paradox-lab.github.io/go-blog/tags/</loc>
   </url>
 </urlset>

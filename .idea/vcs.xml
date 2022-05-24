@@ -2,6 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/docs/themes/hyde" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/docs-dev/themes/hyde" vcs="Git" />
   </component>
 </project>
