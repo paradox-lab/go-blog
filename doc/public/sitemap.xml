@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>http://paradox-lab.github.io/docker/</loc>
+    <priority>0</priority>
   </url><url>
-    <loc>http://example.org/</loc>
+    <loc>http://paradox-lab.github.io/golang/</loc>
+    <priority>0</priority>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>http://paradox-lab.github.io/categories/</loc>
+  </url><url>
+    <loc>http://paradox-lab.github.io/</loc>
+  </url><url>
+    <loc>http://paradox-lab.github.io/tags/</loc>
   </url>
 </urlset>
