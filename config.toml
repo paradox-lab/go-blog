@@ -1,4 +1,4 @@
-baseURL = 'http://coderzh.github.io/'
+baseURL = 'http://coderzh.github.io/go-blog'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
 [params]
