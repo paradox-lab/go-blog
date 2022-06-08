@@ -22,7 +22,7 @@ jobs:
           # extended: true
 
       - name: Build
-        run: cd docs-dev && hugo --theme=hugo-theme-learn --baseUrl="http://coderzh.github.io/" --minify
+        run: cd docs-dev && hugo --theme=hugo-theme-learn --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
