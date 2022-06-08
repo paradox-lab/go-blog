@@ -32,4 +32,4 @@ https://gohugo.io/hosting-and-deployment/hosting-on-github/#build-hugo-with-gith
 
 ## TODO
 
-* Github Actions自动部署(先读完Github入门与实践这本书)
+* Github Actions自动部署
