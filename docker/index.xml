@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dockers on My New Hugo Site</title><link>http://coderzh.github.io/go-blog/docker/</link><description>Recent content in Dockers on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 24 May 2022 17:42:09 +0800</lastBuildDate><atom:link href="http://coderzh.github.io/go-blog/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>First</title><link>http://coderzh.github.io/go-blog/docker/docker/</link><pubDate>Tue, 24 May 2022 17:42:09 +0800</pubDate><guid>http://coderzh.github.io/go-blog/docker/docker/</guid><description>Docker docker仓库 https://hub.docker.com/
+参考书籍 Docker实践(第2版)
+常见问题 容器互相访问 参考博客 https://www.cnblogs.com/shenh/p/9714547.html
+server容器需要调用grpc容器服务以执行用户上传的代码，访问地址是&amp;quot;&amp;lt;容器名称&amp;gt;:&amp;lt;服务端口号&amp;gt;&amp;quot;。
+在django admin pro项目中, 容器名称已在 docker-compose.yml 定义好
+/server/helper/grpc/client.py
+class BaeGrpcClient: def __init__(self, address: str = settings.GRPC_ADDRESS): self.address = address ... /server/django_admin_pro/settings/prod.py
+# grpc容器访问地址 GRPC_ADDRESS = &amp;#34;grpc:50051&amp;#34; 解决apt-get/pip下载很慢的问题 更换国内源，如果基于ubuntu的镜像
+# syntax=docker/dockerfile:1 FROM ubuntu:20.04 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list &amp;amp;&amp;amp; \ apt-get clean &amp;amp;&amp;amp; \ apt-get update &amp;amp;&amp;amp; \ apt-get upgrade -y &amp;amp;&amp;amp; \ apt-get install -y --no-install-recommends \ curl \ vim 如果是python或者go</description></item></channel></rss>

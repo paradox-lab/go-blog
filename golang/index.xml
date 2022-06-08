@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golangs on My New Hugo Site</title><link>http://coderzh.github.io/go-blog/golang/</link><description>Recent content in Golangs on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 24 May 2022 17:42:09 +0800</lastBuildDate><atom:link href="http://coderzh.github.io/go-blog/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>First</title><link>http://coderzh.github.io/go-blog/golang/golang/</link><pubDate>Tue, 24 May 2022 17:42:09 +0800</pubDate><guid>http://coderzh.github.io/go-blog/golang/golang/</guid><description>Go 包管理 wiki https://github.com/golang/go/wiki/Modules
+工程目录结构参考
+go.mod go.sum repo\main.go myPackage\myCode.go util.go &amp;#39;package repo util_test.go ::: tip 每个包最多只能存在一个main.go文件 :::
+初始化 go mod init github.com/my/repo 如果不放远程仓库，可以省略仓库地址
+go mod init repo 自动增加模块依赖和sums
+go mod tidy 引用自定义包 import &amp;#34;repo/repo/myPackage&amp;#34; go.mod go.mod文件的4个关键字
+module语句指定包的名字（路径） require语句指定的依赖项模块 replace语句可以替换依赖项模块 exclude语句可以忽略依赖项模块 引入自定义包(不在项目内)
+项目A引入自定义包B
+A项目的main.go
+import &amp;#34;B/core/management&amp;#34; A项目的go.mod需要加入以下内容
+require B v0.0.0 replace B =&amp;gt; E:\godjan\B ::: tip replace 改用相对路径也可以 :::
+go命令行 go generate 使用go mod并安装go依赖包
+单元测试 :标准库单元测试学习进度: archive/tar/tar_test.go
+单元测试函数的定义一
+创建一个名称以 _test.go 结尾的文件 文件包含 TestXxx 函数 单元测试函数的定义二</description></item></channel></rss>
