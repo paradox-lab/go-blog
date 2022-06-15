@@ -8,5 +8,6 @@
     <orderEntry type="module" module-name="go-doc" />
     <orderEntry type="module" module-name="py-blog" />
     <orderEntry type="module" module-name="fabfile" />
+    <orderEntry type="module" module-name="core" />
   </component>
 </module>

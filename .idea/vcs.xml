@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+    <mapping directory="C:/lzx/core" vcs="Git" />
     <mapping directory="C:/lzx/fabfile" vcs="Git" />
     <mapping directory="C:/lzx/py-blog" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../docs/go-doc" vcs="Git" />
