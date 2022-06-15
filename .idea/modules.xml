@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://C:/lzx/fabfile/.idea/fabfile.iml" filepath="C:/lzx/fabfile/.idea/fabfile.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/go-blog.iml" filepath="$PROJECT_DIR$/.idea/go-blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../docs/go-doc/.idea/go-doc.iml" filepath="$PROJECT_DIR$/../docs/go-doc/.idea/go-doc.iml" />
+      <module fileurl="file://C:/lzx/py-blog/.idea/py-blog.iml" filepath="C:/lzx/py-blog/.idea/py-blog.iml" />
     </modules>
   </component>
 </project>

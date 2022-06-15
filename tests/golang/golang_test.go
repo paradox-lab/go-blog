@@ -8,10 +8,13 @@ package golang
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -274,4 +277,203 @@ func TestEvaluationOrder(t *testing.T) {
 	assert.Equal(t, b, 4)
 	assert.Equal(t, c, 5)
 	assert.Equal(t, d, 5)
+}
+
+// TestFor for循环
+// for是Go语言中唯一的循环语句，Go没有while、do…while循环。
+func TestFor(t *testing.T) {
+	for i := 0; i <= 10; i++ {
+		fmt.Printf("%d", i)
+	}
+
+	// 省略初始语句
+	i := 0
+	for ; i <= 10; i++ {
+		fmt.Printf("%d", i)
+	}
+
+	// 省略条件表达式
+	i = 0
+	for ; ; i++ {
+		if i > 20 { //使用break跳出循环
+			break
+		}
+		fmt.Printf("%d", i)
+	}
+
+	// 类while循环
+	for i <= 10 {
+		fmt.Print(i)
+		i++
+	}
+
+	// 无表达式
+	for {
+		if i > 10 {
+			break
+		}
+		fmt.Print(i)
+		i++
+	}
+
+	//遍历字符串
+	str := "字符串"
+	for i, value := range str {
+		fmt.Printf("第%d的ASCII值=%d，字符是%c \n", i, value, value)
+	}
+}
+
+// TestIf
+// if语句        if语句由一个布尔表达式后紧跟一个或多个语句组成
+// if...else语句 if语句后可以使用可选的else语句，else语句中的表达式再布尔表达式为false时执行
+// if嵌套语句     可以在if或else if语句中潜入一个或多个if或else if语句
+func TestIf(t *testing.T) {
+	num := rand.Int()
+	if num%2 == 0 {
+		fmt.Println(num, "偶数")
+	} else {
+		fmt.Println(num, "奇数")
+	}
+
+	score := rand.Int31()
+	if score >= 90 {
+		fmt.Println("优秀")
+	} else if score >= 80 {
+		fmt.Println("良好")
+	} else if score >= 70 {
+		fmt.Println("中等")
+	} else if score > 60 {
+		fmt.Println("及格")
+	} else if score < 60 {
+		fmt.Println("不及格")
+	}
+
+	if num := rand.Int(); num%2 == 0 {
+		fmt.Println(num, "偶数")
+	} else {
+		fmt.Println(num, "奇数")
+	}
+}
+
+// TestSwitch switch语句用于基于不同条件执行不同动作。
+// select语句类似于switch语句，但是select会随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。
+// switch语句执行的过程自上而下，直到找到case匹配项，匹配项中无须使用break，因为Go语言 中的switch默认给每个case自带break。因此匹配成功后不会向下执行其他的case分支，而是跳出 整个switch。可以添加fallthrough，强制执行后面的case分支。fallthrough必须放在case分支的 最后一行。如果它出现在中间的某个地方，编译器就会报错。
+// 变量var1可以是任何类型，而val1和val2则可以是同类型的任意值。类型不局限于常量或整数，但 必须是相同类型或最终结果为相同类型的表达式。
+// case后的值不能重复，但可以同时测试多个符合条件的值，也就是说case后可以有多个值，这些值 之间使用逗号分隔，例如：case val1,val2,val3。
+// switch后的表达式可以省略，默认是switch true:
+func TestSwitch(t *testing.T) {
+	/* 定义局部变量 */
+	grade := ""
+	score := rand.Int()
+	switch { //switch后面省略不写，默认相当于：switch true
+	case score >= 90:
+		grade = "A"
+	case score >= 80:
+		grade = "B"
+	case score >= 70:
+		grade = "C"
+	case score >= 60:
+		grade = "D"
+	default:
+		grade = "E"
+	}
+
+	switch grade {
+	case "A":
+		fmt.Printf("优秀!\n")
+	case "B":
+		fmt.Printf("良好\n")
+	case "C":
+		fmt.Printf("中等\n")
+	case "D":
+		fmt.Printf("及格\n")
+	default:
+		fmt.Printf("差\n")
+	}
+	/////////////////////////////
+	/* 定义局部变量 */
+	year := rand.Int()
+	month := 2
+	days := 0
+	switch month {
+	case 1, 3, 5, 7, 8, 10, 12:
+		days = 31
+	case 4, 6, 9, 11:
+		days = 30
+	case 2:
+		if (year%4 == 0 && year%100 != 0) || year%400 == 0 {
+			days = 29
+		} else {
+			days = 28
+		}
+	default:
+		days = -1
+	}
+	fmt.Printf("%d 年 %d 月的天数为: %d\n", year, month, days)
+}
+
+func TestError(t *testing.T) {
+	// 返回自定义异常
+	// 第一种方法(推荐)
+	fmt.Println(errors.New("自定义error"))
+	// 第二种方法
+	fmt.Println(fmt.Errorf("%s", "error message"))
+
+	// 定义全局异常
+	var ValueError error
+	ValueError = errors.New("error message")
+	fmt.Println(ValueError)
+}
+
+// TestString 字符串
+func TestString(t *testing.T) {
+	s := "世界你好HelloWorld"
+	// 截取字符串
+	// string类型中，一个字符串占3~4个字节，因此使用len和截取字符串是不准确的， 需要先转换为rune类型再处理，例如截取 s 变量的前4位:
+
+	assert.Equal(t, string([]rune(s)[:4]), "世界你好")
+	// 判断是否包含子串
+	assert.True(t, strings.Contains("seafood", "foo"))
+	// 判断字符串是否包含另一字符串中的任一字符
+	assert.True(t, strings.ContainsAny("team", "ie"))
+	// 判断开头的字符串
+	assert.True(t, strings.HasPrefix(s, "世界你好"))
+	// 判断结尾的字符串
+	assert.True(t, strings.HasSuffix(s, "World"))
+	// 返回字符串中另一字符串首次出现的位置
+	assert.Equal(t, strings.Index("chicken", "ken"), 4)
+	// 将字符串以空白字符分割, 并返回一个切片
+	assert.Equal(t, strings.Fields("abc 123 ABC xyz XYZ"), []string{"abc", "123", "ABC", "xyz", "XYZ"})
+}
+
+// TestInt 整型
+func TestInt(t *testing.T) {
+	// int转string
+	var num int = 100
+	assert.Equal(t, strconv.Itoa(num), "100")
+}
+
+// TestMap
+func TestMap(t *testing.T) {
+	// 列出所有Key
+	dict := make(map[string]interface{})
+	dict["name"] = "Daniel"
+	dict["age"] = 13
+	dict["height"] = 1.71
+
+	list := make([]string, 0, len(dict))
+	for key, _ := range dict {
+		list = append(list, key)
+	}
+	assert.Equal(t, list, []string{"name", "age", "height"})
+
+	// 判断键名是否存在字典中
+	if _, ok := dict["USA"]; ok {
+		t.Fatal("fail")
+	}
+
+	// 删除元素
+	if _, ok := dict["background"]; ok {
+		delete(dict, "background")
+	}
 }

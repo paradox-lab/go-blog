@@ -30,6 +30,6 @@ hugo --theme=hyde --baseUrl="http://coderzh.github.io/"
 https://gohugo.io/hosting-and-deployment/hosting-on-github/#build-hugo-with-github-action
 ```
 
-## TODO
+## theme
 
-* Github Actions自动部署
+使用的是[hugo-theme-learn](https://learn.netlify.app/en/)

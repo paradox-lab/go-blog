@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+    <mapping directory="C:/lzx/fabfile" vcs="Git" />
+    <mapping directory="C:/lzx/py-blog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../docs/go-doc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/docs-dev/themes/hugo-theme-learn" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/docs-dev/themes/hugo-theme-learnbak" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-learnbak" vcs="Git" />
   </component>
 </project>

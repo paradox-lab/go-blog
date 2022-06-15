@@ -5,3 +5,4 @@ title = 'My New Hugo Site'
   AuthorName = 'Jon Doe'
   GitHubUser = 'spf13'
   themeVariant = "blue"
+landingPageURL = 'go-blog'
