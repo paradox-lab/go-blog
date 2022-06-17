@@ -1,1 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on My New Hugo Site</title><link>http://coderzh.github.io/go-blog/</link><description>Recent content in About on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 24 May 2022 17:41:32 +0800</lastBuildDate><atom:link href="http://coderzh.github.io/go-blog/index.xml" rel="self" type="application/rss+xml"/><item><title>First</title><link>http://coderzh.github.io/go-blog/post/first/</link><pubDate>Tue, 24 May 2022 17:42:09 +0800</pubDate><guid>http://coderzh.github.io/go-blog/post/first/</guid><description>Hello Hugo aaa bbb ccc</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>About on My New Hugo Site</title><link>http://coderzh.github.io/go-blog/</link><description>Recent content in About on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 24 May 2022 17:41:32 +0800</lastBuildDate><atom:link href="http://coderzh.github.io/go-blog/index.xml" rel="self" type="application/rss+xml"/><item><title>在容器运行图形化软件</title><link>http://coderzh.github.io/go-blog/docker/gui.zh/</link><pubDate>Wed, 15 Jun 2022 16:58:49 +0800</pubDate><guid>http://coderzh.github.io/go-blog/docker/gui.zh/</guid><description>在主机安装X11软件, Centos 7/8
+yum -y install xorg-x11-xauth Docker实践(第2版) 技巧29 在Docker里运行GUI
+分两种场景
+在本地Linux启动docker的GUI
+以 core 为例，启动容器的命令
+sudo docker run -itd --name core -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw --privileged core 这里从主机挂载了X11图形化软件，GUI需要的环境变量: DISPLAY 。 DISPLAY是显示器名称
+本地远程服务器使用docker exec的GUI(不推荐)
+如果是Win系统，先下载Xming, 然后参考博客 https://blog.csdn.net/ywxuan/article/details/118462658
+docker run -itd --name core --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /opt/core:/opt/core --privileged core 关键参数: --net=host -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority -v /tmp/.X11-unix:/tmp/.X11-unix:rw
+注意, 每次XShell重新连接，都要重启容器，然后进入容器修改DISPLAY的值跟宿主机的一致，才能打开图形化界面软件。因为这个过程挺繁琐的，所以不推荐这种方法。
+本地ssh直接容器，然后打开GUI(推荐)
+运行容器 docker run --net=host --name gui image_name 对于Linux系统, 关键参数只有 --net=host (Win系统不支持 --net=host), 不要挂载主机的 /.</description></item><item><title>First</title><link>http://coderzh.github.io/go-blog/post/first/</link><pubDate>Tue, 24 May 2022 17:42:09 +0800</pubDate><guid>http://coderzh.github.io/go-blog/post/first/</guid><description>Hello Hugo aaa bbb ccc</description></item></channel></rss>
