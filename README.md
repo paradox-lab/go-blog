@@ -4,6 +4,4 @@
 
 灵感来自 [py-blog](https://gitee.com/luzhenxiong/py-blog)。
 
-# TODO
-
-* 使用github pages部署。
+博客地址: https://paradox-lab.github.io/go-blog/zh
