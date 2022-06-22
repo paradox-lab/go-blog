@@ -1,0 +1,103 @@
+****************************
+配置文件
+****************************
+
+go-ini(个人使用)
+=====================================
+
+:github地址: https://github.com/go-ini/ini
+
+:Documentation: https://ini.unknwon.io/docs/
+
+.. tip::
+
+    同类的库还有viper，gin-vue-admin在使用
+
+.. code-block:: ini
+
+    # possible values : production, development
+    app_mode = development
+
+    [paths]
+    chdir = D:\myproject\mygin
+    # Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
+    data = /home/git/grafana
+
+    [server]
+    # Protocol (http or https)
+    protocol = http
+
+    # The http port  to use
+    http_port = 9999
+
+    # Redirect to correct domain if host header does not match domain
+    # Prevents DNS rebinding attacks
+    enforce_domain = true
+
+.. code-block:: go
+
+    package main
+
+    import (
+        "fmt"
+        "os"
+
+        "gopkg.in/ini.v1"
+    )
+
+    func main() {
+        cfg, err := ini.Load("my.ini")
+        if err != nil {
+            fmt.Printf("Fail to read file: %v", err)
+            os.Exit(1)
+        }
+
+        // 典型读取操作，默认分区可以使用空字符串表示
+        fmt.Println("App Mode:", cfg.Section("").Key("app_mode").String())
+        fmt.Println("Data Path:", cfg.Section("paths").Key("data").String())
+
+        // 我们可以做一些候选值限制的操作
+        fmt.Println("Server Protocol:",
+            cfg.Section("server").Key("protocol").In("http", []string{"http", "https"}))
+        // 如果读取的值不在候选列表内，则会回退使用提供的默认值
+        fmt.Println("Email Protocol:",
+            cfg.Section("server").Key("protocol").In("smtp", []string{"imap", "smtp"}))
+
+        // 试一试自动类型转换
+        fmt.Printf("Port Number: (%[1]T) %[1]d\n", cfg.Section("server").Key("http_port").MustInt(9999))
+        fmt.Printf("Enforce Domain: (%[1]T) %[1]v\n", cfg.Section("server").Key("enforce_domain").MustBool(false))
+
+        // 差不多了，修改某个值然后进行保存
+        cfg.Section("").Key("app_mode").SetValue("production")
+        cfg.SaveTo("my.ini.local")
+    }
+
+viper(工作使用)
+===================================
+
+:github: https://github.com/spf13/viper
+
+快速上手
+
+.. code-block:: go
+
+    v := viper.New()  // 实例化
+    v.SetConfigFile(config)  // 设置配置文件
+    v.SetConfigType("yaml")  // 设置配置文件格式
+    err := v.ReadInConfig()  // 读取配置文件
+    if err != nil {
+        panic(fmt.Errorf("Fatal error config file: %s \n", err))
+    }
+    // 配置监听配置文件的回调方法
+    v.OnConfigChange(func(e fsnotify.Event) {
+        fmt.Println("config file changed:", e.Name)
+        if err := v.Unmarshal(&global.GVA_CONFIG); err != nil {
+            fmt.Println(err)
+        }
+    })
+
+    if err := v.Unmarshal(&global.GVA_CONFIG); err != nil {
+        fmt.Println(err)
+    }
+    // 开始实时监听配置文件
+    v.WatchConfig()

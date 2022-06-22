@@ -1,0 +1,221 @@
+****************************
+读写文件(包含一些常见格式)
+****************************
+
+.. highlight:: go
+
+reader.go
+===========================
+
+.. code-block:: go
+
+    /*******************************************************************************
+    主要用到了os.Open函数，只能用于读取数据，不能写入
+
+    - ExampleRead1: 循环读取文件数据并输出字符串
+    - ExampleRead2: 一次性读取文件数据到[]byte
+
+     ******************************************************************************/
+
+    package main
+
+    import (
+        "fmt"
+        "io"
+        "io/ioutil"
+        "os"
+    )
+
+    func ExampleRead1() {
+        // 打开文件
+        fileName := "./files/blockchain.txt"
+        file, err := os.Open(fileName)
+        if err != nil {
+            fmt.Println("打开文件错误", err.Error())
+        } else {
+            bs := make([]byte, 1024*8, 1024*8)
+            n := -1
+
+            // 【read】循环读取数据，读满一次bs，输出一次字符串
+            for {
+                n, err = file.Read(bs)
+                if n == 0 || err == io.EOF {
+                    fmt.Println("读取文件结束！")
+                    break
+                }
+                fmt.Println(string(bs[:n]))
+            }
+        }
+    }
+
+    func ExampleRead2(){
+        // 打开文件
+        fileName := "./files/blockchain.txt"
+        file, err := os.Open(fileName)
+        if err != nil {
+            fmt.Println("打开文件错误", err.Error())
+        }
+
+        // 【read】一次性读取并写入到[]byte切片
+        buf, _:=ioutil.ReadAll(file)
+        fmt.Println(len(buf))
+    }
+
+writer.go
+===========================
+
+.. code-block:: go
+
+    /*******************************************************************************
+     * Copyright (c) 2021.
+     * @Author：luzhenxiong
+     * @Description：
+
+    os.OpenFile主要用于写入
+
+    - ExampleWrite1: 创建txt文件并写入[]byte数据和字符串
+    - ExampleWrite2: 处理第三方返回的io.Reader类型并写入到新文件
+     ******************************************************************************/
+
+    package main
+
+    import (
+        "fmt"
+        "io"
+        "io/ioutil"
+        "os"
+    )
+
+    func ExampleWrite1() {
+        //写入文件
+        file,err:=os.OpenFile("./files/abc.txt",os.O_RDWR|os.O_CREATE,os.ModePerm)
+        defer file.Close()
+        if err !=nil{
+            fmt.Println("打开文件异常",err.Error())
+        }else{
+            //【write】写入[]byte类型数据
+            n,err:=file.Write([]byte("abcde12345"))
+            if err!=nil{
+                fmt.Println("写入文件异常",err.Error())
+            }else{
+                fmt.Println("写入Ok：",n)
+            }
+            // 【write】写入string类型
+            n,err=file.WriteString("中国字")
+            if err != nil{
+                fmt.Println("写入文件异常",err.Error())
+            }else{
+                fmt.Println("写入Ok：",n)
+            }
+        }
+    }
+
+    func ExampleWrite2()  {
+        // 处理第三方返回的io.Reader类型并写入到文件
+        // 假设Body是第三方返回的值
+        var Body io.Reader
+
+        file, _ := os.OpenFile("filename", os.O_RDWR|os.O_CREATE, os.ModePerm)
+        defer file.Close()
+        b, _ := ioutil.ReadAll(Body)
+        n, err := file.Write(b)
+        if err != nil {
+            fmt.Println("写入文件异常", err.Error())
+        } else {
+            fmt.Println("写入Ok：", n)
+        }
+    }
+
+
+读写json格式
+============================
+
+处理json格式需要先定义好结构体::
+
+    // Animal 定义json结构体
+    type Animal struct {
+        Name  string
+        Order string
+    }
+
+读::
+
+    // 打开Json配置文件
+    file, err := os.Open("file.json")
+    if err != nil {
+        fmt.Println("打开文件错误", err.Error())
+    }
+
+    defer file.Close()
+
+    // 读取文件数据
+    jsonBlob, _:=ioutil.ReadAll(file)
+
+    var animals []Animal
+
+    // Json解码
+    err := json.Unmarshal(jsonBlob, &animals)
+    if err != nil {
+        fmt.Println("error:", err)
+    }
+
+    fmt.Printf("%+v", animals)
+
+读写xlsx格式
+============================
+
+依赖的第三方库
+
+* `excelize`_
+
+.. _excelize: https://xuri.me/excelize/zh-hans/
+
+**演示代码的前置动作**
+
+.. code-block:: go
+
+    import (
+        "github.com/360EntSecGroup-Skylar/excelize/v2"
+    )
+
+读取xlsx
+----------------------------
+
+.. _打开文件:
+
+打开文件
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: go
+
+    f, err := excelize.OpenFile("Book1.xlsx")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+读取工作表指定单元格的值
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: go
+
+    cell, err := f.GetCellValue("Sheet1", "B2")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(cell)
+
+读取工作表所有单元格
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: go
+
+    rows, err := f.GetRows("Sheet1")
+    for _, row := range rows {
+        for _, colCell := range row {
+            fmt.Print(colCell, "\t")
+        }
+    }
+
+

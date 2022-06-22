@@ -1,0 +1,129 @@
+===================================
+模板语法
+===================================
+
+https://pkg.go.dev/text/template#hdr-Text_and_spaces
+
+新建index.tmpl文件
+
+变量
+-------------
+
+*main.go*
+
+.. code-block:: go
+
+    type Inventory struct {
+        Material string
+        Count    uint
+    }
+
+    type Recipient struct {
+        Name, Gift string
+        Attended   bool
+    }
+    // -------------------------------
+
+    // 函数内部代码
+    sweaters := Inventory{"wool", 17}
+    recipients = []Recipient{
+        {"Aunt Mildred", "bone china tea set", true},
+        {"Uncle John", "moleskin pants", false},
+        {"Cousin Rodney", "", false},
+    }
+
+    router.GET("/index", func(c *gin.Context) {
+        c.HTML(http.StatusOK, "index.tmpl", gin.H{
+            "title":          "运维小工具", // 传递变量
+            "sweaters":        sweaters,  //传递结构体
+            "recipients":      recipients,  //传递切片
+            "bool":            true
+        })
+    }
+
+*index.tmpl*
+
+.. code-block:: html
+
+    {{.title}}
+    {{.sweaters.Material}}
+    {{.recipients}}
+
+.. warning::
+
+    切片变量不能取指定索引的值，只能使用循环处理。例如 `.recipients[0]` 是一个错误的语法
+
+有一个不错的地方是模板变量可以作为js的变量来使用，当然也可以作为参数直接传递进js函数
+
+.. code-block:: html
+
+    <script>
+    console.log({{.title}})
+    console.log({{.sweaters}}) // 这里在js是ojbect类型
+
+    function Log(self){
+    console.log(self.Material)
+    }({{.sweaters}})
+    </script>
+
+循环
+--------------------
+
+.. code-block:: html
+
+    <select>
+    <option>----------------</option>
+    {{range $option := .options}}
+        <option value="{{$option}}">{{$option}}</option>
+    {{end}}
+    </select>
+
+条件判断
+---------------------
+
+.. code-block:: html
+
+    {{if .bool}} T1 {{end}}
+
+实现 `if (not ...) and (...)`
+
+.. code-block:: html
+
+    {{if and (not .bool) (.bool)}} T1 {{end}}
+
+template
+---------------------------------
+
+类似于django的extends标签
+
+block
+---------------------------------
+
+跟django的block一样意思，定义块，用于子模板重写父模板内容
+
+.. code-block:: text
+
+   {{block "name" .}}{{end}}
+
+   {% block name %}{% endblock %}
+
+
+
+----------------------------------
+
+常见问题
+----------------------------------
+
+转义{{和}}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+使用 `
+
+.. code-block:: text
+
+    {{`{{ msg }}`}}
+
+跟django的差异
+----------------------------------
+
+* gin无法实现static标签，因为gin并没保存STATIC_URL

@@ -1,0 +1,16 @@
+********************
+执行不受信任的代码
+********************
+
+:github: https://github.com/x1unix/go-playground
+:应用: https://goplay.tools/
+
+克隆到本地能启动项目，但连接google失败，跑不了代码。
+
+在 https://goplay.tools/ 能跑，估计是因为后端不是用的google
+
+NEXT，参考github的内容，采用docker自建后端的方式跑代码
+
+.. warning::
+
+    因为涉及到docker的内容，所以要等到熟练使用docker部署go程序后，再去推进这个事

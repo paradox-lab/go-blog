@@ -4,7 +4,6 @@
     <mapping directory="C:/lzx/core" vcs="Git" />
     <mapping directory="C:/lzx/fabfile" vcs="Git" />
     <mapping directory="C:/lzx/py-blog" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../docs/go-doc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>

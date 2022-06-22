@@ -1,0 +1,50 @@
+*****************************
+单元测试
+*****************************
+
+:doc: https://gin-gonic.com/zh-cn/docs/testing/
+
+POST上传图片
+=========================================
+
+.. code-block:: go
+
+    func TestPostImageUpload(t *testing.T) {
+        router := zhenhua.SetupRouter()
+        w := httptest.NewRecorder()
+
+        body := new(bytes.Buffer)
+
+        writer := multipart.NewWriter(body)
+
+        formFile, err := writer.CreateFormFile("upload", "测试.png")
+        if err != nil{
+            t.Fatal(err)
+        }
+
+        file, err := os.OpenFile("D:\\myproject\\zhenhua\\zhenhua\\测试.png", os.O_RDONLY, os.ModePerm)
+        if err != nil{
+            t.Fatal(err)
+        }
+        _, err = io.Copy(formFile, file)
+
+        if err != nil{
+            t.Fatal(err)
+        }
+
+        writer.Close()
+
+        //body2 := io.MultiReader(body)
+        req, err := http.NewRequest("POST", "http://localhost:8080/zhenhua/api/image", body)
+
+        if err != nil{
+            t.Fatal(err)
+        }
+
+        req.Header.Add("Content-Type", writer.FormDataContentType())
+
+        router.ServeHTTP(w, req)
+
+        fmt.Println(w.Body.String())
+        assert.Equal(t, 200, w.Code)
+    }

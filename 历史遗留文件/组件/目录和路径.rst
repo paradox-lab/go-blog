@@ -1,0 +1,108 @@
+************************
+目录和路径
+************************
+
+判断文件夹或者文件是否存在
+===============================
+
+.. code-block:: go
+
+    // 判断文件是否存在
+    _, err = os.Stat(path)
+    if err != nil {
+        fmt.Println(err) // 文件不存在
+    }
+
+遍历目录
+==============================
+
+使用filepath.Walk
+
+.. code-block:: go
+
+    err = filepath.Walk(templateDir, func(path string, info fs.FileInfo, err error) error {
+        fmt.Prinln(info.IsDir())
+        return nil
+    })
+
+    if err != nil{
+        log.Fatal(err)
+    }
+
+--------------------------------------------------------------------------
+
+实现Python的`BASE_DIR = Path(__file__).resolve().parent`
+===========================================================================
+
+假设目录结构: 要求BASE_DIR = 'example/'， 即项目根目录, 在setting.go获取BASE_DIR
+
+.. code-block:: text
+
+    example/
+    example/example/config/setting.go
+    example/tests/test.go
+
+.. code-block:: go
+
+    func init(){
+        // 项目根目录
+        BaseDir = GetCurrentAbPath()
+    }
+
+    func GetCurrentAbPath() string {
+
+        dir := getCurrentAbPathByExecutable()
+        log.Println("dir: ", dir)
+        // 判断dir是否跟环境变量TEMP一致，一致代表是go run/test
+        log.Println("TmpDir: ", getTmpDir())
+        log.Println("if Equal: ", dir , getTmpDir())
+        if dir == getTmpDir() {
+            // go run/test, 代码文件所在路径
+            dir, _ = filepath.Abs(".")
+
+            // 兼容go test的情况，在`项目根目录/tests`运行go test
+            if filepath.Base(dir) == "tests"{
+                dir, _=filepath.Abs("..")
+                return dir
+            }
+            return dir
+        }
+        dir, _ = filepath.Abs("..")
+        log.Println("../dir: ", dir)
+        // go build，要求在aje/aje目录下执行
+        return dir
+    }
+
+    // 获取系统临时目录，兼容go run
+    func getTmpDir() string {
+        dir := os.Getenv("TEMP")
+        if dir == "" {
+            dir = os.Getenv("TMP")
+        }
+        res, _ := filepath.EvalSymlinks(dir)
+        return res
+    }
+
+    func getCurrentAbPathByExecutable() string {
+        exePath, err := os.Executable()
+        if err != nil {
+            log.Fatal(err)
+        }
+        res, _ := filepath.EvalSymlinks(filepath.Dir(exePath))
+        return res
+    }
+
+-----------------------------------------------
+
+.. code-block:: text
+
+    os.Getwd()  //当前路径
+    filepath.IsAbs("E:/dir") //判断是否绝对路径
+    filepath.Rel(path1,path2) //获取相对路径
+    filepath.Abs(path) //获取绝对路径
+    filepath.Abs("..") //获取上一级绝对路径
+    filepath.Abs(filepath.Join("..", "..")) // 获取上二级路径
+
+    filePath.Join(path1,path2) //拼接路径
+    filePath.Base(path) //从路径获取最后的名称
+

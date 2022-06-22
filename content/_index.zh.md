@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "Home"
 date: 2022-05-24T17:41:32+08:00
 draft: false
 ---
@@ -9,7 +9,7 @@ draft: false
 创建文章
 
 ```text
-hugo new post/first.md
+hugo new post/first.zh.md
 ```
 
 https://github.com/gohugoio/gohugoioTheme

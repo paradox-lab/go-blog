@@ -1,0 +1,55 @@
+****************************
+示例
+****************************
+
+HTML渲染
+==============================
+
+官方例子
+
+.. code-block:: go
+
+    func main() {
+        router := gin.Default()
+        router.LoadHTMLGlob("templates/*")
+        //router.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
+        router.GET("/index", func(c *gin.Context) {
+            c.HTML(http.StatusOK, "index.tmpl", gin.H{
+                "title": "Main website",
+            })
+        })
+        router.Run(":8080")
+    }
+
+templates/index.tmpl
+
+.. code-block:: html
+
+    <html>
+        <h1>
+            {{ .title }}
+        </h1>
+    </html>
+
+**拓展**
+
+定义根模板， 不同的页面都继承这个根模板
+
+.. code-block:: go
+
+    r := gin.Default()
+
+    r.Static("/static", ".\\static")
+
+    r.GET("", func(c *gin.Context) {
+        // index.html继承自base.html
+        r.LoadHTMLFiles("base.html",
+                        "index.html")
+        c.HTML(http.StatusOK, "index.html", gin.H{})
+    })
+
+    r.GET("gotempl", func(c *gin.Context) {
+        // gotempl.html继承自index.html
+        r.LoadHTMLGlob("templates\\*")
+        c.HTML(http.StatusOK, "gotempl.html", gin.H{})
+    })

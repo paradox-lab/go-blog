@@ -1,0 +1,136 @@
+************************
+网络请求和发送
+************************
+
+构造application/json类型的POST请求
+================================================
+
+.. code-block:: go
+
+        payload := `{"key1": "value", "key2": "value}`
+
+        method := "POST"
+        u := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/kf/sync_msg?access_token=%v", accessToken)
+
+        client := &http.Client{}
+        req, err := http.NewRequest(method, u, payload)
+
+        if err != nil {
+            return nil, err
+        }
+        req.Header.Add("Content-Type", "application/json")
+
+        resp, err := client.Do(req)
+
+        defer resp.Body.Close()
+        body, err := ioutil.ReadAll(resp.Body)
+        if err != nil {
+            return nil, err
+        }
+
+.. warning::
+
+    标准库文档提供的PostForm函数是application/x-www-form-urlencoded数据类型，参数并不会传入到body主体
+
+POST上传图片
+=========================================
+
+https://blog.csdn.net/bobdragery/article/details/106525813
+
+亲测可行
+
+**高层次的代码**
+
+.. code-block::
+
+    func TestName2(t *testing.T) {
+        buf := new(bytes.Buffer)
+        writer := multipart.NewWriter(buf)
+        ContentType := writer.FormDataContentType()
+
+        formFile, err:=writer.CreateFormFile("upload", "测试.png")
+        if err != nil{
+            fmt.Println(err)
+        }
+        srcFile, err := os.OpenFile("D:\\myproject\\zhenhua\\zhenhua\\测试.png", os.O_RDONLY, os.ModePerm)
+        if err != nil{
+            t.Fatal(err)
+        }
+        _, err = io.Copy(formFile, srcFile)
+
+        if err != nil{
+            t.Fatal(err)
+        }
+        // 这里不能用defer，必须先关闭了再请求(关闭动作写入了-- boundary --，缺少了会有问题)
+        writer.Close()
+
+        content2, err := ioutil.ReadAll(buf)
+        if err!=nil{
+            fmt.Println(err)
+        } else {
+            fmt.Println(string(content2))
+        }
+
+        resp, err :=http.Post("http://localhost:8080/zhenhua/api/image", ContentType, buf)
+        if err != nil{
+            fmt.Println(err)
+            return
+        }
+        defer resp.Body.Close()
+        b, err :=ioutil.ReadAll(resp.Body)
+        if err !=nil{
+            fmt.Println(err)
+            return
+        }
+        fmt.Println(string(b))
+    }
+
+**低层次的代码**
+
+.. code-block:: go
+
+    // TODO 还可以改进，参考multipart.write_test.go代码，模仿构造Mime内容的构造方式
+    func TestName(t *testing.T) {
+
+        body := new(bytes.Buffer)
+
+        writer := multipart.NewWriter(body)
+        boundary := "ASSDFWDFBFWEFWWDF"
+
+        file, err := os.OpenFile("D:\\myproject\\zhenhua\\zhenhua\\测试.png", os.O_RDONLY, os.ModePerm)
+        if err != nil{
+            t.Fatal(err)
+        }
+        data, _ :=ioutil.ReadAll(file)
+        picData := "--" + boundary + "\n"
+        picData = picData + "Content-Disposition: form-data; name=\"upload\"; filename=" + "\"测试.png\"" + "\n"
+        picData = picData + "Content-Type: image/png\n\n"
+        picData = picData + string(data) + "\n"
+        picData = picData + "--" + boundary + "--"
+
+        defer writer.Close()
+
+        //body2 := io.MultiReader(body)
+        req, err := http.NewRequest("POST", "http://localhost:8080/zhenhua/api/image", strings.NewReader(picData))
+        req.Header.Add("Content-Type", "multipart/form-data; boundary=" + boundary)
+        if err != nil{
+            t.Fatal(err)
+        }
+
+        HttpClient := &http.Client{
+            Timeout: 100000 * time.Second,
+        }
+
+        resp, err := HttpClient.Do(req)
+        if err != nil {
+            t.Fatal(err)
+        }
+        defer resp.Body.Close()
+
+        content, err := ioutil.ReadAll(resp.Body)
+        if err != nil {
+            t.Fatal(err)
+        }
+        fmt.Println(string(content))
+        defer req.Body.Close()
+    }
