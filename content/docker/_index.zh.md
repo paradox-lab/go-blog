@@ -40,45 +40,6 @@ class BaeGrpcClient:
 GRPC_ADDRESS = "grpc:50051"
 ```
 
-### 解决apt-get/pip下载很慢的问题
-
-更换国内源，如果基于ubuntu的镜像
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM ubuntu:20.04
-
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
-    apt-get clean && \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    curl \
-    vim
-```
-
-如果是python或者go
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM python:3.10.2-bullseye
-
-# 安装方便调试的工具
-RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
-    sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
-    sed -i 's/security-cdn.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list && \
-    apt-get clean && \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    curl \
-    vim
-
-# pip更换国内源
-RUN pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple \
-    && pip3 config set install.trusted-host mirrors.aliyun.com
-```
-
 ### 对已启动的容器修改端口
 
 https://www.cnblogs.com/fps2tao/p/10557257.html
