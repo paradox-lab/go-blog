@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'docker run --rm -v /var/jenkins_home/workspace/goblog/tests/report:/app/report goblog'
+                sh 'docker run --rm -v /var/jenkins_home/workspace/goblog/report:/app/report goblog'
             }
         }
     }
