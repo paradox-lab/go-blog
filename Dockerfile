@@ -17,4 +17,5 @@ COPY report ./report
 
 # RUN go build -o /go-blog
 
-CMD [ "go", "test", "-json", "./tests/...", "|", "go-test-report", "-o", 'report/html/report-$(date "+%Y%m%d%H%M%S").html']
+#CMD [ "go", "test", "-json", "./tests/...", "|", "go-test-report", "-o", 'report/html/report-$(date "+%Y%m%d%H%M%S").html']
+CMD 'go test -json ./tests/... | go-test-report -o report/html/report-$(date "+%Y%m%d%H%M%S").html'
