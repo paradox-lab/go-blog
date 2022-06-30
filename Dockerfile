@@ -13,6 +13,7 @@ RUN go mod download
 RUN go install github.com/vakenbolt/go-test-report@latest
 
 COPY tests ./tests
+COPY report ./report
 
 # RUN go build -o /go-blog
 
