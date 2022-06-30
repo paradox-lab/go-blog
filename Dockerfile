@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.18.2-stretch
+FROM golang:1.18.3-stretch
 
 WORKDIR /app
 
@@ -9,9 +9,11 @@ COPY go.sum ./
 
 RUN go env -w GOPROXY=https://goproxy.cn
 RUN go mod download
+# 安装测试报告工具
+RUN go install github.com/vakenbolt/go-test-report@latest
 
 COPY tests ./tests
 
 # RUN go build -o /go-blog
 
-CMD [ "go", "test", "-v", "./tests", "|", "go-test-report", "-o", 'report/html/report-$(date "+%Y%m%d%H%M%S").html']
+CMD [ "go", "test", "-json", "./tests/...", "|", "go-test-report", "-o", 'report/html/report-$(date "+%Y%m%d%H%M%S").html']
