@@ -7,7 +7,7 @@ WORKDIR /app
 COPY go.mod ./
 COPY go.sum ./
 
-RUN go env -w GOPROXY=https://goproxy.cn
+RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 # 安装测试报告工具
 RUN go install github.com/vakenbolt/go-test-report@latest

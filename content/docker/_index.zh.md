@@ -118,6 +118,12 @@ set mouse-=a
 
 之后就可以正常使用粘贴了。
 
+### vim无法粘贴
+
+```text
+:set mouse-=a
+```
+
 ## docker版本的软件
 
 ### jenkins

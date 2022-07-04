@@ -465,7 +465,9 @@ func TestMap(t *testing.T) {
 	for key, _ := range dict {
 		list = append(list, key)
 	}
-	assert.Equal(t, list, []string{"name", "age", "height"})
+	assert.Contains(t, list, "name")
+	assert.Contains(t, list, "age")
+	assert.Contains(t, list, "height")
 
 	// 判断键名是否存在字典中
 	if _, ok := dict["USA"]; ok {
