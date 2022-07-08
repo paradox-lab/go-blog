@@ -2,6 +2,8 @@
 title: "Golang"
 date: 2022-05-24T17:42:09+08:00
 draft: false
+pre: "<b>1. </b>"
+weight: 5
 ---
 
 # Go

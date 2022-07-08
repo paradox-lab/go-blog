@@ -14,6 +14,10 @@ https://docs.docker.com/desktop/windows/install/
 
 https://docs.microsoft.com/zh-cn/windows/wsl/install
 
+## 查看启动参数
+
+[runlike](https://github.com/lavie/runlike)
+
 ## 常见问题
 
 ### 容器互相访问
