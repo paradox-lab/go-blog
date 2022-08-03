@@ -4,15 +4,15 @@ date: 2022-05-24T17:41:32+08:00
 draft: false
 ---
 
-## hugo
+# hugo
+
+**docs** https://gohugo.io/getting-started/
 
 创建文章
 
 ```text
 hugo new post/first.zh.md
 ```
-
-https://github.com/gohugoio/gohugoioTheme
 
 本地运行hugo
 

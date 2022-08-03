@@ -6,4 +6,8 @@ draft: false
 
 # 持续集成
 
-**github**: https://github.com/harness/drone
+**github(server)**: https://github.com/harness/drone
+
+**github(runner)**: https://github.com/drone-runners
+
+**docs**: https://docs.drone.io/
